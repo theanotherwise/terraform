@@ -3,7 +3,7 @@ master_tags = [
   "elasticsearch-cluster",
   "master-node"]
 master_count = 3
-master_machine_type = "n1-standard-2"
+master_machine_type = "n1-standard-4"
 master_network_cidr = "10.0.10.0/24"
 
 voting_only_name = "voting-only"
@@ -35,7 +35,7 @@ ml_tags = [
   "elasticsearch-cluster",
   "ml-node"]
 ml_count = 3
-ml_machine_type = "n1-standard-4"
+ml_machine_type = "n1-standard-8"
 ml_network_cidr = "10.0.14.0/24"
 
 transform_name = "transform"
@@ -51,15 +51,15 @@ coordinating_tags = [
   "elasticsearch-cluster",
   "coordinating-node"]
 coordinating_count = 3
-coordinating_machine_type = "n1-standard-1"
+coordinating_machine_type = "n1-standard-2"
 coordinating_network_cidr = "10.0.16.0/24"
 
 kibana_name = "kibana"
 kibana_tags = [
   "elasticsearch-cluster",
   "kibana"]
-kibana_count = 3
-kibana_machine_type = "n1-standard-2"
+kibana_count = 1
+kibana_machine_type = "n1-standard-8"
 kibana_network_cidr = "10.0.17.0/24"
 
 bastion_name = "bastion"
