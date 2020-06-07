@@ -138,6 +138,26 @@ variable "coordinating_machine_type" {
     type = string
 }
 
+variable "kibana_name" {
+    type = string
+}
+
+variable "kibana_tags" {
+    type = list(string)
+}
+
+variable "kibana_count" {
+    type = number
+}
+
+variable "kibana_network_cidr" {
+    type = string
+}
+
+variable "kibana_machine_type" {
+    type = string
+}
+
 variable "bastion_name" {
     type = string
 }

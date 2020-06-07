@@ -33,6 +33,11 @@ resource "google_compute_address" "coordinating" {
   count = var.coordinating_count
 }
 
+resource "google_compute_address" "kibana" {
+  name = "${local.kibana_name}${count.index}"
+  count = var.kibana_count
+}
+
 resource "google_compute_address" "bastion" {
   name = "${local.bastion_name}${count.index}"
   count = var.bastion_count

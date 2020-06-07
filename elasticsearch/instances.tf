@@ -173,6 +173,31 @@ resource "google_compute_instance" "coordinating-node" {
     google_compute_address.coordinating]
 }
 
+resource "google_compute_instance" "kibana-node" {
+  name = "${local.kibana_name}${count.index}"
+  machine_type = var.kibana_machine_type
+  count = var.kibana_count
+
+  tags = var.kibana_tags
+
+  boot_disk {
+    initialize_params {
+      image = var.image
+    }
+  }
+  network_interface {
+    subnetwork = google_compute_subnetwork.kibana.name
+    access_config {
+      nat_ip = element(google_compute_address.kibana.*.address, count.index)
+    }
+  }
+
+  allow_stopping_for_update = true
+  depends_on = [
+    google_compute_subnetwork.kibana,
+    google_compute_address.kibana]
+}
+
 resource "google_compute_instance" "bastion-instance" {
   name = "${local.bastion_name}${count.index}"
   machine_type = var.bastion_machine_type

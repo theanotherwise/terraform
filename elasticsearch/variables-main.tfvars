@@ -2,7 +2,6 @@ region = "us-central1"
 zone = "us-central1-a"
 
 name = "elasticsearch"
-env_name = "test"
 
 image = "ubuntu-os-cloud/ubuntu-1804-lts"
 
