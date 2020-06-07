@@ -26,7 +26,7 @@ resource "google_compute_firewall" "from-internet-to-kibana" {
   allow {
     protocol = "tcp"
     ports = [
-      "5601"]
+      "80", "443"]
   }
 
   direction = "INGRESS"
