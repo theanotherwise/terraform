@@ -1,5 +1,5 @@
 resource "google_compute_project_metadata" "default" {
   metadata = {
-    ssh-keys = var.ssh_keys_pub
+    ssh-keys = var.terraform_ssh_keys_pub
   }
 }

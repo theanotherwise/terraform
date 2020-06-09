@@ -14,10 +14,22 @@ variable "image" {
     type = string
 }
 
-variable "ssh_keys_pub" {
+variable "network" {
     type = string
 }
 
-variable "network" {
+variable "terraform_user" {
+    type = string
+}
+
+variable "terraform_ssh_keys_pub" {
+    type = string
+}
+
+variable "ansible_user" {
+    type = string
+}
+
+variable "ansible_ssh_keys_pub" {
     type = string
 }

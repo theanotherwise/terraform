@@ -66,6 +66,5 @@ bastion_name = "bastion"
 bastion_tags = [
   "elasticsearch-cluster",
   "elasticsearch-bastion"]
-bastion_count = 1
 bastion_machine_type = "n1-standard-1"
 bastion_network_cidr = "10.0.1.0/24"

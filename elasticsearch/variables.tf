@@ -166,10 +166,6 @@ variable "bastion_tags" {
     type = list(string)
 }
 
-variable "bastion_count" {
-    type = number
-}
-
 variable "bastion_network_cidr" {
     type = string
 }
