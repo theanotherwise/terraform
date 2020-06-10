@@ -26,7 +26,7 @@ data_name = "data"
 data_tags = [
   "elasticsearch-cluster",
   "data-node"]
-data_count = 3
+data_count = 4
 data_machine_type = "n1-standard-1"
 data_network_cidr = "10.0.13.0/24"
 
