@@ -14,10 +14,6 @@ variable "zone" {
     type = string
 }
 
-variable "image" {
-    type = string
-}
-
 variable "network" {
     type = string
 }
@@ -62,10 +58,6 @@ variable "master_network_cidr" {
     type = string
 }
 
-variable "master_machine_type" {
-    type = string
-}
-
 ###############################################################
 #              | | (_)                         | |
 #   __   _____ | |_ _ _ __   __ _    ___  _ __ | |_   _
@@ -89,10 +81,6 @@ variable "voting_only_count" {
 }
 
 variable "voting_only_network_cidr" {
-    type = string
-}
-
-variable "voting_only_machine_type" {
     type = string
 }
 
@@ -122,10 +110,6 @@ variable "ingest_network_cidr" {
     type = string
 }
 
-variable "ingest_machine_type" {
-    type = string
-}
-
 ###############################################################
 #       | |     | |
 #     __| | __ _| |_ __ _
@@ -147,10 +131,6 @@ variable "data_count" {
 }
 
 variable "data_network_cidr" {
-    type = string
-}
-
-variable "data_machine_type" {
     type = string
 }
 
@@ -178,10 +158,6 @@ variable "ml_network_cidr" {
     type = string
 }
 
-variable "ml_machine_type" {
-    type = string
-}
-
 ###############################################################
 #   | |                      / _|
 #   | |_ _ __ __ _ _ __  ___| |_ ___  _ __ _ __ ___
@@ -203,10 +179,6 @@ variable "transform_count" {
 }
 
 variable "transform_network_cidr" {
-    type = string
-}
-
-variable "transform_machine_type" {
     type = string
 }
 
@@ -236,10 +208,6 @@ variable "coordinating_network_cidr" {
     type = string
 }
 
-variable "coordinating_machine_type" {
-    type = string
-}
-
 ###############################################################
 #    _    _ _
 #   | |  (_) |
@@ -265,10 +233,6 @@ variable "kibana_network_cidr" {
     type = string
 }
 
-variable "kibana_machine_type" {
-    type = string
-}
-
 ###############################################################
 #   | |             | | (_)
 #   | |__   __ _ ___| |_ _  ___  _ __
@@ -286,9 +250,5 @@ variable "bastion_tags" {
 }
 
 variable "bastion_network_cidr" {
-    type = string
-}
-
-variable "bastion_machine_type" {
     type = string
 }

@@ -1,5 +1,5 @@
 resource "google_compute_instance" "bastion" {
-  name = local.bastion_name
+  name = var.bastion_name
   machine_type = var.bastion_machine_type
 
   tags = var.bastion_tags

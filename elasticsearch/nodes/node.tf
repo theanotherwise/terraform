@@ -1,20 +1,20 @@
-resource "google_compute_instance" "ml-node" {
-  name = "${local.ml_name}${count.index}"
-  machine_type = var.ml_machine_type
-  count = var.ml_count
+resource "google_compute_instance" "data-node" {
+  name = "${var.node_name}${count.index}"
+  machine_type = var.node_machine_type
+  count = var.node_count
 
-  tags = var.ml_tags
+  tags = var.node_tags
 
   boot_disk {
     initialize_params {
-      image = var.image
+      image = var.node_image
     }
   }
   network_interface {
-    subnetwork = google_compute_subnetwork.ml.name
+    subnetwork = var.gcp_subnetwork
 
     access_config {
-      nat_ip = element(google_compute_address.ml.*.address, count.index)
+      nat_ip = element(var.gcp_address, count.index)
     }
   }
   connection {
@@ -24,7 +24,7 @@ resource "google_compute_instance" "ml-node" {
     port = 22
     private_key = file("~/configuration/ssh/terraform.id_rsa")
 
-    bastion_host = "${google_compute_address.bastion.address}"
+    bastion_host = var.bastion_address
     bastion_user = var.terraform_user
     bastion_port = 22
     bastion_private_key = file("~/configuration/ssh/terraform.id_rsa")
@@ -32,7 +32,7 @@ resource "google_compute_instance" "ml-node" {
   provisioner "remote-exec" {
     inline = [
       "sudo touch /etc/sshguard/whitelist",
-      "echo \"${google_compute_address.bastion.address}\" | sudo tee -a /etc/sshguard/whitelist"
+      "echo \"${var.bastion_address}\" | sudo tee -a /etc/sshguard/whitelist"
     ]
   }
   metadata = {
@@ -41,8 +41,5 @@ resource "google_compute_instance" "ml-node" {
 
   allow_stopping_for_update = true
 
-  depends_on = [
-    google_compute_subnetwork.ml,
-    google_compute_address.ml,
-    google_compute_instance.bastion]
+  depends_on = [var.dependencies]
 }
