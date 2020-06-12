@@ -1,5 +1,5 @@
 output "subnetwork_master_name" {
-  value = google_compute_subnetwork.master.name
+  value = google_compute_subnetwork.master-node.name
 }
 
 output "address_master_address" {
@@ -7,7 +7,7 @@ output "address_master_address" {
 }
 
 output "subnetwork_voting_only_name" {
-  value = google_compute_subnetwork.voting-only.name
+  value = google_compute_subnetwork.voting-only-node.name
 }
 
 output "address_voting_only_address" {
@@ -15,7 +15,7 @@ output "address_voting_only_address" {
 }
 
 output "subnetwork_ingest_name" {
-  value = google_compute_subnetwork.ingest.name
+  value = google_compute_subnetwork.ingest-node.name
 }
 
 output "address_ingest_address" {
@@ -23,7 +23,7 @@ output "address_ingest_address" {
 }
 
 output "subnetwork_data_name" {
-  value = google_compute_subnetwork.data.name
+  value = google_compute_subnetwork.data-node.name
 }
 
 output "address_data_address" {
@@ -31,7 +31,7 @@ output "address_data_address" {
 }
 
 output "subnetwork_ml_name" {
-  value = google_compute_subnetwork.ml.name
+  value = google_compute_subnetwork.master-node.name
 }
 
 output "address_ml_address" {
@@ -39,7 +39,7 @@ output "address_ml_address" {
 }
 
 output "subnetwork_transform_name" {
-  value = google_compute_subnetwork.transform.name
+  value = google_compute_subnetwork.transform-node.name
 }
 
 output "address_transform_address" {
@@ -47,7 +47,7 @@ output "address_transform_address" {
 }
 
 output "subnetwork_coordinating_name" {
-  value = google_compute_subnetwork.coordinating.name
+  value = google_compute_subnetwork.coordinating-node.name
 }
 
 output "address_coordinating_address" {

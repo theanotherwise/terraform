@@ -1,4 +1,4 @@
-resource "google_compute_subnetwork" "master" {
+resource "google_compute_subnetwork" "master-node" {
   name = var.master_name
   ip_cidr_range = var.master_network_cidr
   region = var.region
@@ -8,7 +8,7 @@ resource "google_compute_subnetwork" "master" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "voting-only" {
+resource "google_compute_subnetwork" "voting-only-node" {
   name = var.voting_only_name
   ip_cidr_range = var.voting_only_network_cidr
   region = var.region
@@ -18,7 +18,7 @@ resource "google_compute_subnetwork" "voting-only" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "ingest" {
+resource "google_compute_subnetwork" "ingest-node" {
   name = var.ingest_name
   ip_cidr_range = var.ingest_network_cidr
   region = var.region
@@ -27,7 +27,7 @@ resource "google_compute_subnetwork" "ingest" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "data" {
+resource "google_compute_subnetwork" "data-node" {
   name = var.data_name
   ip_cidr_range = var.data_network_cidr
   region = var.region
@@ -37,7 +37,7 @@ resource "google_compute_subnetwork" "data" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "ml" {
+resource "google_compute_subnetwork" "ml-node" {
   name = var.ml_name
   ip_cidr_range = var.ml_network_cidr
   region = var.region
@@ -47,7 +47,7 @@ resource "google_compute_subnetwork" "ml" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "transform" {
+resource "google_compute_subnetwork" "transform-node" {
   name = var.transform_name
   ip_cidr_range = var.transform_network_cidr
   region = var.region
@@ -57,7 +57,7 @@ resource "google_compute_subnetwork" "transform" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "coordinating" {
+resource "google_compute_subnetwork" "coordinating-node" {
   name = var.coordinating_name
   ip_cidr_range = var.coordinating_network_cidr
   region = var.region

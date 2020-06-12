@@ -38,11 +38,11 @@ resource "google_compute_address" "kibana" {
   count = var.kibana_count
 }
 
-resource "google_compute_address" "bastion" {
-  name = "${var.bastion_name}"
-}
-
 resource "google_compute_address" "client" {
   name = "${var.client_name}${count.index}"
   count = var.client_count
+}
+
+resource "google_compute_address" "bastion" {
+  name = "${var.bastion_name}"
 }
