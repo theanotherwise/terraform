@@ -22,19 +22,27 @@ variable "terraform_user" {
     type = string
 }
 
+variable "terraform_ssh_key_file_path" {
+    type = string
+}
+
 variable "bastion_address" {
     type = string
 }
 
-variable "ansible_ssh_keys_pub" {
+variable "bastion_port" {
+    type = number
+}
+
+variable "ansible_ssh_key_pub" {
     type = string
 }
 
-variable "gcp_address" {
+variable "provider_address" {
     type = list(string)
 }
 
-variable "gcp_subnetwork" {
+variable "provider_subnetwork_name" {
     type = string
 }
 

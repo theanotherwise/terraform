@@ -10,15 +10,12 @@ resource "google_compute_instance" "bastion" {
     }
   }
   network_interface {
-    subnetwork = google_compute_subnetwork.bastion.name
+    subnetwork = var.provider_subnetwork_name
 
     access_config {
-      nat_ip = google_compute_address.bastion.address
+      nat_ip = var.provider_address
     }
   }
 
   allow_stopping_for_update = true
-  depends_on = [
-    google_compute_subnetwork.bastion,
-    google_compute_address.bastion,]
 }

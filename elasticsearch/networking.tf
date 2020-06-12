@@ -7,10 +7,10 @@ module "networking" {
   network = var.network
 
   ansible_user = var.ansible_user
-  ansible_ssh_keys_pub = var.ansible_ssh_keys_pub
+  ansible_ssh_keys_pub = var.ansible_ssh_key_pub
 
   terraform_user = var.terraform_user
-  terraform_ssh_keys_pub = var.terraform_ssh_keys_pub
+  terraform_ssh_keys_pub = var.terraform_ssh_key_pub
 
   master_name = var.master_name
   master_count = var.master_count

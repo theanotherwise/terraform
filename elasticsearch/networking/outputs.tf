@@ -59,7 +59,7 @@ output "subnetwork_kibana_name" {
 }
 
 output "address_kibana_address" {
-  value = google_compute_subnetwork.kibana.name
+  value = google_compute_address.kibana.*.address
 }
 
 output "subnetwork_bastion_name" {
@@ -67,5 +67,5 @@ output "subnetwork_bastion_name" {
 }
 
 output "address_bastion_address" {
-  value = google_compute_subnetwork.bastion.name
+  value = google_compute_address.bastion.address
 }

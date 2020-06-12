@@ -18,7 +18,7 @@ variable "terraform_user" {
     type = string
 }
 
-variable "terraform_ssh_keys_pub" {
+variable "terraform_ssh_key_pub" {
     type = string
 }
 
@@ -26,7 +26,7 @@ variable "ansible_user" {
     type = string
 }
 
-variable "ansible_ssh_keys_pub" {
+variable "ansible_ssh_key_pub" {
     type = string
 }
 
@@ -283,4 +283,8 @@ variable "bastion_network_cidr" {
 
 variable "bastion_machine_type" {
     type = string
+}
+
+variable "bastion_port" {
+    type = number
 }

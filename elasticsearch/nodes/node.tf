@@ -11,10 +11,10 @@ resource "google_compute_instance" "data-node" {
     }
   }
   network_interface {
-    subnetwork = var.gcp_subnetwork
+    subnetwork = var.provider_subnetwork_name
 
     access_config {
-      nat_ip = element(var.gcp_address, count.index)
+      nat_ip = element(var.provider_address, count.index)
     }
   }
   connection {
@@ -22,12 +22,12 @@ resource "google_compute_instance" "data-node" {
     host = self.network_interface[0].network_ip
     user = var.terraform_user
     port = 22
-    private_key = file("~/configuration/ssh/terraform.id_rsa")
+    private_key = var.terraform_ssh_key_file_path
 
     bastion_host = var.bastion_address
     bastion_user = var.terraform_user
-    bastion_port = 22
-    bastion_private_key = file("~/configuration/ssh/terraform.id_rsa")
+    bastion_port = var.bastion_port
+    bastion_private_key = var.terraform_ssh_key_file_path
   }
   provisioner "remote-exec" {
     inline = [
@@ -36,7 +36,7 @@ resource "google_compute_instance" "data-node" {
     ]
   }
   metadata = {
-    ssh-keys = var.ansible_ssh_keys_pub
+    ssh-keys = var.ansible_ssh_key_pub
   }
 
   allow_stopping_for_update = true
