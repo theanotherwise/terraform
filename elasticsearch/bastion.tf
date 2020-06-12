@@ -10,4 +10,8 @@ module "bastion" {
 
   provider_address = module.networking.address_bastion_address
   provider_subnetwork_name = module.networking.subnetwork_bastion_name
+
+  dependencies = [
+    "module.defaults",
+    "module.networking"]
 }

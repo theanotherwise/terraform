@@ -1,4 +1,4 @@
-resource "google_compute_instance" "data-node" {
+resource "google_compute_instance" "node" {
   name = "${var.node_name}${count.index}"
   machine_type = var.node_machine_type
   count = var.node_count
@@ -21,10 +21,10 @@ resource "google_compute_instance" "data-node" {
     type = "ssh"
     host = self.network_interface[0].network_ip
     user = var.terraform_user
-    port = 22
+    port = var.bastion_port
     private_key = var.terraform_ssh_key_file_path
 
-    bastion_host = var.bastion_address
+    bastion_host = var.bastion_external_address
     bastion_user = var.terraform_user
     bastion_port = var.bastion_port
     bastion_private_key = var.terraform_ssh_key_file_path
@@ -32,7 +32,7 @@ resource "google_compute_instance" "data-node" {
   provisioner "remote-exec" {
     inline = [
       "sudo touch /etc/sshguard/whitelist",
-      "echo \"${var.bastion_address}\" | sudo tee -a /etc/sshguard/whitelist"
+      "echo \"${var.bastion_internal_address}\" | sudo tee -a /etc/sshguard/whitelist"
     ]
   }
   metadata = {
@@ -43,3 +43,4 @@ resource "google_compute_instance" "data-node" {
 
   depends_on = [var.dependencies]
 }
+

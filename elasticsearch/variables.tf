@@ -14,6 +14,10 @@ variable "network" {
     type = string
 }
 
+variable "terraform_port" {
+    type = string
+}
+
 variable "terraform_user" {
     type = string
 }

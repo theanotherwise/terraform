@@ -69,3 +69,7 @@ output "subnetwork_bastion_name" {
 output "address_bastion_address" {
   value = module.networking.address_bastion_address
 }
+
+output "bastion_internal_address" {
+  value = module.bastion.bastion_internal_address
+}

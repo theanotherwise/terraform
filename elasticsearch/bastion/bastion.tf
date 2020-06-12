@@ -18,4 +18,6 @@ resource "google_compute_instance" "bastion" {
   }
 
   allow_stopping_for_update = true
+
+  depends_on = [var.dependencies]
 }

@@ -25,3 +25,7 @@ variable "provider_subnetwork_name" {
 variable "provider_address" {
     type = string
 }
+
+variable "dependencies" {
+    type = list(string)
+}

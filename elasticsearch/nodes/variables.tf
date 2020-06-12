@@ -18,6 +18,10 @@ variable "node_image" {
     type = string
 }
 
+variable "terraform_port" {
+    type = number
+}
+
 variable "terraform_user" {
     type = string
 }
@@ -26,7 +30,11 @@ variable "terraform_ssh_key_file_path" {
     type = string
 }
 
-variable "bastion_address" {
+variable "bastion_internal_address" {
+    type = string
+}
+
+variable "bastion_external_address" {
     type = string
 }
 
