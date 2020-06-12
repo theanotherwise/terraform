@@ -162,7 +162,7 @@ client_tags = [
   "client"]
 client_count = 3
 client_machine_type = "n1-standard-1"
-client_network_cidr = "10.0.17.0/24"
+client_network_cidr = "10.0.18.0/24"
 
 ###############################################################
 #   | |             | | (_)

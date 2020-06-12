@@ -41,21 +41,22 @@ resource "google_compute_firewall" "from-bastion-to-kibana" {
 }
 
 
-resource "google_compute_firewall" "from-internet-to-kibana" {
-  name = "from-internet-to-kibana"
+resource "google_compute_firewall" "from-client-to-kibana" {
+  name = "from-client-to-kibana"
   network = google_compute_network.network.name
 
   allow {
     protocol = "tcp"
     ports = [
-      "80", "443"]
+      "5601"]
   }
 
   direction = "INGRESS"
-  source_ranges = [
-    "0.0.0.0/0"]
   target_tags = [
     "kibana"]
+
+  source_tags = [
+    "client"]
 
   depends_on = [
     google_compute_network.network]
@@ -76,6 +77,26 @@ resource "google_compute_firewall" "from-internet-to-client" {
     "0.0.0.0/0"]
   target_tags = [
     "client"]
+
+  depends_on = [
+    google_compute_network.network]
+}
+
+resource "google_compute_firewall" "from-internet-to-bastion" {
+  name = "from-internet-to-bastion"
+  network = google_compute_network.network.name
+
+  allow {
+    protocol = "tcp"
+    ports = [
+      "22"]
+  }
+
+  direction = "INGRESS"
+  source_ranges = [
+    "0.0.0.0/0"]
+  target_tags = [
+    "bastion"]
 
   depends_on = [
     google_compute_network.network]
