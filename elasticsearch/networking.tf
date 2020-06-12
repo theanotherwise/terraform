@@ -6,6 +6,12 @@ module "networking" {
 
   network = var.network
 
+  ansible_user = var.ansible_user
+  ansible_ssh_keys_pub = var.ansible_ssh_keys_pub
+
+  terraform_user = var.terraform_user
+  terraform_ssh_keys_pub = var.terraform_ssh_keys_pub
+
   master_name = var.master_name
   master_count = var.master_count
   master_tags = var.master_tags
@@ -45,13 +51,6 @@ module "networking" {
   kibana_count = var.kibana_count
   kibana_tags = var.kibana_tags
   kibana_network_cidr = var.kibana_network_cidr
-
-
-  ansible_user = var.ansible_user
-  ansible_ssh_keys_pub = var.ansible_ssh_keys_pub
-
-  terraform_user = var.terraform_user
-  terraform_ssh_keys_pub = var.terraform_ssh_keys_pub
 
   bastion_name = var.bastion_name
   bastion_tags = var.bastion_tags

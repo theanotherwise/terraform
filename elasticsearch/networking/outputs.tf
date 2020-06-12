@@ -2,18 +2,70 @@ output "subnetwork_master_name" {
   value = google_compute_subnetwork.master.name
 }
 
+output "address_master_address" {
+  value = google_compute_address.master.*.address
+}
+
 output "subnetwork_voting_only_name" {
   value = google_compute_subnetwork.voting-only.name
+}
+
+output "address_voting_only_address" {
+  value = google_compute_address.voting-only.*.address
 }
 
 output "subnetwork_ingest_name" {
   value = google_compute_subnetwork.ingest.name
 }
 
+output "address_ingest_address" {
+  value = google_compute_address.ingest.*.address
+}
+
 output "subnetwork_data_name" {
   value = google_compute_subnetwork.data.name
 }
 
+output "address_data_address" {
+  value = google_compute_address.data.*.address
+}
+
 output "subnetwork_ml_name" {
   value = google_compute_subnetwork.ml.name
+}
+
+output "address_ml_address" {
+  value = google_compute_address.ml.*.address
+}
+
+output "subnetwork_transform_name" {
+  value = google_compute_subnetwork.transform.name
+}
+
+output "address_transform_address" {
+  value = google_compute_address.transform.*.address
+}
+
+output "subnetwork_coordinating_name" {
+  value = google_compute_subnetwork.coordinating.name
+}
+
+output "address_coordinating_address" {
+  value = google_compute_address.coordinating.*.address
+}
+
+output "subnetwork_kibana_name" {
+  value = google_compute_subnetwork.kibana.name
+}
+
+output "address_kibana_address" {
+  value = google_compute_subnetwork.kibana.name
+}
+
+output "subnetwork_bastion_name" {
+  value = google_compute_subnetwork.bastion.name
+}
+
+output "address_bastion_address" {
+  value = google_compute_subnetwork.bastion.name
 }
