@@ -292,3 +292,31 @@ variable "bastion_machine_type" {
 variable "bastion_port" {
     type = number
 }
+
+###############################################################
+#        | (_)          | |
+#     ___| |_  ___ _ __ | |_
+#    / __| | |/ _ \ '_ \| __|
+#   | (__| | |  __/ | | | |_
+#    \___|_|_|\___|_| |_|\__|
+###############################################################
+
+variable "client_name" {
+    type = string
+}
+
+variable "client_tags" {
+    type = list(string)
+}
+
+variable "client_count" {
+    type = number
+}
+
+variable "client_network_cidr" {
+    type = string
+}
+
+variable "client_machine_type" {
+    type = string
+}

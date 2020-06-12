@@ -1,4 +1,4 @@
-resource "google_compute_instance" "node" {
+resource "google_compute_instance" "instance" {
   name = "${var.node_name}${count.index}"
   machine_type = var.node_machine_type
   count = var.node_count
@@ -20,14 +20,14 @@ resource "google_compute_instance" "node" {
   connection {
     type = "ssh"
     host = self.network_interface[0].network_ip
-    user = var.terraform_user
-    port = var.bastion_port
-    private_key = var.terraform_ssh_key_file_path
+    user = "terraform"
+    port = 22
+    private_key = file("~/configuration/ssh/terraform.id_rsa")
 
     bastion_host = var.bastion_external_address
-    bastion_user = var.terraform_user
-    bastion_port = var.bastion_port
-    bastion_private_key = var.terraform_ssh_key_file_path
+    bastion_user = "terraform"
+    bastion_port = 22
+    bastion_private_key = file("~/configuration/ssh/terraform.id_rsa")
   }
   provisioner "remote-exec" {
     inline = [

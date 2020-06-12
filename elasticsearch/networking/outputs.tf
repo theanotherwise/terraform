@@ -62,6 +62,14 @@ output "address_kibana_address" {
   value = google_compute_address.kibana.*.address
 }
 
+output "subnetwork_client_name" {
+  value = google_compute_subnetwork.client.name
+}
+
+output "address_client_address" {
+  value = google_compute_address.client.*.address
+}
+
 output "subnetwork_bastion_name" {
   value = google_compute_subnetwork.bastion.name
 }

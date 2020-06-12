@@ -1,51 +1,43 @@
-variable "region" {
+variable "node_name" {
     type = string
 }
 
-variable "zone" {
+variable "node_machine_type" {
     type = string
 }
 
-variable "image" {
+variable "node_count" {
     type = string
 }
 
-variable "network" {
-    type = string
-}
-
-variable "terraform_user" {
-    type = string
-}
-
-variable "terraform_ssh_keys_pub" {
-    type = string
-}
-
-variable "ansible_user" {
-    type = string
-}
-
-variable "ansible_ssh_keys_pub" {
-    type = string
-}
-
-variable "kibana_name" {
-    type = string
-}
-
-variable "kibana_tags" {
+variable "node_tags" {
     type = list(string)
 }
 
-variable "kibana_count" {
-    type = number
-}
-
-variable "kibana_network_cidr" {
+variable "node_image" {
     type = string
 }
 
-variable "kibana_machine_type" {
+variable "bastion_internal_address" {
     type = string
+}
+
+variable "bastion_external_address" {
+    type = string
+}
+
+variable "ansible_ssh_key_pub" {
+    type = string
+}
+
+variable "provider_address" {
+    type = list(string)
+}
+
+variable "provider_subnetwork_name" {
+    type = string
+}
+
+variable "dependencies" {
+    type = list(string)
 }

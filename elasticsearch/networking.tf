@@ -52,6 +52,11 @@ module "networking" {
   kibana_tags = var.kibana_tags
   kibana_network_cidr = var.kibana_network_cidr
 
+  client_name = var.client_name
+  client_count = var.client_count
+  client_tags = var.client_tags
+  client_network_cidr = var.client_network_cidr
+
   bastion_name = var.bastion_name
   bastion_tags = var.bastion_tags
   bastion_network_cidr = var.bastion_network_cidr

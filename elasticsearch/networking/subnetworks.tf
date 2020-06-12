@@ -77,6 +77,16 @@ resource "google_compute_subnetwork" "kibana" {
     google_compute_network.network]
 }
 
+resource "google_compute_subnetwork" "client" {
+  name = var.client_name
+  ip_cidr_range = var.client_network_cidr
+  region = var.region
+  network = google_compute_network.network.name
+
+  depends_on = [
+    google_compute_network.network]
+}
+
 resource "google_compute_subnetwork" "bastion" {
   name = var.bastion_name
   ip_cidr_range = var.bastion_network_cidr
