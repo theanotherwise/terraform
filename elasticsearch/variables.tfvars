@@ -29,7 +29,7 @@ master_tags = [
   "cluster",
   "master-node"]
 master_count = 3
-master_machine_type = "n1-standard-1"
+master_machine_type = "n1-standard-4"
 master_network_cidr = "10.0.10.0/24"
 
 ###############################################################
@@ -80,8 +80,8 @@ data_name = "data"
 data_tags = [
   "cluster",
   "data-node"]
-data_count = 4
-data_machine_type = "n1-standard-1"
+data_count = 3
+data_machine_type = "n1-standard-16"
 data_network_cidr = "10.0.13.0/24"
 
 ###############################################################
@@ -97,7 +97,7 @@ ml_tags = [
   "cluster",
   "ml-node"]
 ml_count = 3
-ml_machine_type = "n1-standard-1"
+ml_machine_type = "n1-standard-4"
 ml_network_cidr = "10.0.14.0/24"
 
 ###############################################################
@@ -131,7 +131,7 @@ coordinating_tags = [
   "cluster",
   "coordinating-node"]
 coordinating_count = 3
-coordinating_machine_type = "n1-standard-1"
+coordinating_machine_type = "n1-standard-2"
 coordinating_network_cidr = "10.0.16.0/24"
 
 ###############################################################
@@ -146,7 +146,7 @@ kibana_name = "kibana"
 kibana_tags = [
   "kibana"]
 kibana_count = 3
-kibana_machine_type = "n1-standard-1"
+kibana_machine_type = "n1-standard-2"
 kibana_network_cidr = "10.0.17.0/24"
 
 ###############################################################
