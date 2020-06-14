@@ -87,7 +87,7 @@ resource "google_compute_subnetwork" "kibana-client" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "logstash-shipper-client" {
+resource "google_compute_subnetwork" "logstash-shipper" {
   name = var.logstash_shipper_name
   ip_cidr_range = var.logstash_shipper_network_cidr
   region = var.region
@@ -97,9 +97,19 @@ resource "google_compute_subnetwork" "logstash-shipper-client" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "logstash-indexer-client" {
+resource "google_compute_subnetwork" "logstash-indexer" {
   name = var.logstash_indexer_name
   ip_cidr_range = var.logstash_indexer_network_cidr
+  region = var.region
+  network = google_compute_network.network.name
+
+  depends_on = [
+    google_compute_network.network]
+}
+
+resource "google_compute_subnetwork" "kafka" {
+  name = var.kafka_name
+  ip_cidr_range = var.kafka_network_cidr
   region = var.region
   network = google_compute_network.network.name
 

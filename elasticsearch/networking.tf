@@ -67,6 +67,11 @@ module "networking" {
   logstash_indexer_tags = var.logstash_indexer_tags
   logstash_indexer_network_cidr = var.logstash_indexer_network_cidr
 
+  kafka_name = var.kafka_name
+  kafka_count = var.kafka_count
+  kafka_tags = var.kafka_tags
+  kafka_network_cidr = var.kafka_network_cidr
+
   bastion_name = var.bastion_name
   bastion_tags = var.bastion_tags
   bastion_network_cidr = var.bastion_network_cidr

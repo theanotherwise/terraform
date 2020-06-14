@@ -14,10 +14,6 @@ variable "network" {
     type = string
 }
 
-variable "terraform_port" {
-    type = string
-}
-
 variable "terraform_user" {
     type = string
 }
@@ -254,6 +250,26 @@ variable "logstash_indexer_machine_type" {
     type = string
 }
 
+variable "kafka_name" {
+    type = string
+}
+
+variable "kafka_tags" {
+    type = list(string)
+}
+
+variable "kafka_count" {
+    type = number
+}
+
+variable "kafka_network_cidr" {
+    type = string
+}
+
+variable "kafka_machine_type" {
+    type = string
+}
+
 variable "bastion_name" {
     type = string
 }
@@ -268,8 +284,4 @@ variable "bastion_network_cidr" {
 
 variable "bastion_machine_type" {
     type = string
-}
-
-variable "bastion_port" {
-    type = number
 }

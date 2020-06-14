@@ -206,7 +206,7 @@ module "kibana-client" {
     "module.kibana"]
 }
 
-module "logstash-shipper-client" {
+module "logstash-shipper" {
   source = "./instances"
 
   node_name = var.logstash_shipper_name
@@ -226,11 +226,10 @@ module "logstash-shipper-client" {
   dependencies = [
     "module.defaults",
     "module.networking",
-    "module.bastion",
-    "module.kibana"]
+    "module.bastion"]
 }
 
-module "logstash-indexer-client" {
+module "logstash-indexer" {
   source = "./instances"
 
   node_name = var.logstash_indexer_name
@@ -250,6 +249,28 @@ module "logstash-indexer-client" {
   dependencies = [
     "module.defaults",
     "module.networking",
-    "module.bastion",
-    "module.kibana"]
+    "module.bastion"]
+}
+
+module "kafka" {
+  source = "./instances"
+
+  node_name = var.kafka_name
+  node_machine_type = var.kafka_machine_type
+  node_count = var.kafka_count
+  node_tags = var.kafka_tags
+  node_image = var.image
+
+  provider_address = module.networking.address_kafka_address
+  provider_subnetwork_name = module.networking.subnetwork_kafka_name
+
+  bastion_internal_address = module.bastion.bastion_internal_address
+  bastion_external_address = module.bastion.bastion_external_address
+
+  ansible_ssh_key_pub = var.ansible_ssh_key_pub
+
+  dependencies = [
+    "module.defaults",
+    "module.networking",
+    "module.bastion"]
 }

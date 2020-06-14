@@ -202,6 +202,22 @@ variable "logstash_indexer_network_cidr" {
     type = string
 }
 
+variable "kafka_name" {
+    type = string
+}
+
+variable "kafka_tags" {
+    type = list(string)
+}
+
+variable "kafka_count" {
+    type = number
+}
+
+variable "kafka_network_cidr" {
+    type = string
+}
+
 variable "bastion_name" {
     type = string
 }

@@ -71,18 +71,27 @@ output "address_kibana_client_address" {
 }
 
 output "subnetwork_logstash_shipper_name" {
-  value = google_compute_subnetwork.logstash-shipper-client.name
+  value = google_compute_subnetwork.logstash-shipper.name
 }
 
 output "address_logstash_shipper_address" {
-  value = google_compute_address.logstash-shipper-client.*.address
+  value = google_compute_address.logstash-shipper.*.address
 }
+
 output "subnetwork_logstash_indexer_name" {
-  value = google_compute_subnetwork.logstash-indexer-client.name
+  value = google_compute_subnetwork.logstash-indexer.name
 }
 
 output "address_logstash_indexer_address" {
-  value = google_compute_address.logstash-indexer-client.*.address
+  value = google_compute_address.logstash-indexer.*.address
+}
+
+output "subnetwork_kafka_name" {
+  value = google_compute_subnetwork.kafka.name
+}
+
+output "address_kafka_address" {
+  value = google_compute_address.kafka.*.address
 }
 
 output "subnetwork_bastion_name" {
