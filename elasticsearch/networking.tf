@@ -52,10 +52,20 @@ module "networking" {
   kibana_tags = var.kibana_tags
   kibana_network_cidr = var.kibana_network_cidr
 
-  client_name = var.client_name
-  client_count = var.client_count
-  client_tags = var.client_tags
-  client_network_cidr = var.client_network_cidr
+  kibana_client_name = var.kibana_client_name
+  kibana_client_count = var.kibana_client_count
+  kibana_client_tags = var.kibana_client_tags
+  kibana_client_network_cidr = var.kibana_client_network_cidr
+
+  logstash_shipper_name = var.logstash_shipper_name
+  logstash_shipper_count = var.logstash_shipper_count
+  logstash_shipper_tags = var.logstash_shipper_tags
+  logstash_shipper_network_cidr = var.logstash_shipper_network_cidr
+
+  logstash_indexer_name = var.logstash_indexer_name
+  logstash_indexer_count = var.logstash_indexer_count
+  logstash_indexer_tags = var.logstash_indexer_tags
+  logstash_indexer_network_cidr = var.logstash_indexer_network_cidr
 
   bastion_name = var.bastion_name
   bastion_tags = var.bastion_tags

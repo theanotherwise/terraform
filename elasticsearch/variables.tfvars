@@ -16,161 +16,102 @@ ansible_ssh_key_pub = <<EndOfMessage
 ansible:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCi8wHVecPaj12wH4gSUoUBs8wP+skNRKvx1N5S7MKFRu8bt4plAKKKS2HzFtOSECsXycQ2q5LVUQCMwWklBYiW9uhAE0g22QPQq/Oseu70q/liUdFIHuRXKC8HI3wRCNKxKvvml0RcMSciSNK5knUbyoGEvB13tQrKTSHiYX+seQ==
 EndOfMessage
 
-###############################################################
-#                       | |
-#    _ __ ___   __ _ ___| |_ ___ _ __
-#   | '_ ` _ \ / _` / __| __/ _ \ '__|
-#   | | | | | | (_| \__ \ ||  __/ |
-#   |_| |_| |_|\__,_|___/\__\___|_|
-###############################################################
-
 master_name = "master"
 master_tags = [
-  "cluster",
-  "master-node"]
-master_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-master-node"]
+master_count = 2
 master_machine_type = "n1-standard-4"
 master_network_cidr = "10.0.10.0/24"
 
-###############################################################
-#              | | (_)                         | |
-#   __   _____ | |_ _ _ __   __ _    ___  _ __ | |_   _
-#   \ \ / / _ \| __| | '_ \ / _` |  / _ \| '_ \| | | | |
-#    \ V / (_) | |_| | | | | (_| | | (_) | | | | | |_| |
-#     \_/ \___/ \__|_|_| |_|\__, |  \___/|_| |_|_|\__, |
-#                            __/ |                 __/ |
-#                           |___/                 |___/
-###############################################################
-
 voting_only_name = "voting-only"
 voting_only_tags = [
-  "cluster",
-  "voting-only-node"]
-voting_only_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-voting-only-node"]
+voting_only_count = 1
 voting_only_machine_type = "n1-standard-1"
 voting_only_network_cidr = "10.0.11.0/24"
 
-###############################################################
-#   (_)                     | |
-#    _ _ __   __ _  ___  ___| |_
-#   | | '_ \ / _` |/ _ \/ __| __|
-#   | | | | | (_| |  __/\__ \ |_
-#   |_|_| |_|\__, |\___||___/\__|
-#             __/ |
-#            |___/
-###############################################################
-
 ingest_name = "ingest"
 ingest_tags = [
-  "cluster",
-  "ingest-node"]
-ingest_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-ingest-node"]
+ingest_count = 1
 ingest_machine_type = "n1-standard-1"
 ingest_network_cidr = "10.0.12.0/24"
 
-###############################################################
-#       | |     | |
-#     __| | __ _| |_ __ _
-#    / _` |/ _` | __/ _` |
-#   | (_| | (_| | || (_| |
-#    \__,_|\__,_|\__\__,_|
-###############################################################
-
 data_name = "data"
 data_tags = [
-  "cluster",
-  "data-node"]
-data_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-data-node"]
+data_count = 2
 data_machine_type = "n1-standard-16"
 data_network_cidr = "10.0.13.0/24"
 
-###############################################################
-#             | |
-#    _ __ ___ | |
-#   | '_ ` _ \| |
-#   | | | | | | |
-#   |_| |_| |_|_|
-###############################################################
-
 ml_name = "ml"
 ml_tags = [
-  "cluster",
-  "ml-node"]
-ml_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-ml-node"]
+ml_count = 1
 ml_machine_type = "n1-standard-4"
 ml_network_cidr = "10.0.14.0/24"
 
-###############################################################
-#   | |                      / _|
-#   | |_ _ __ __ _ _ __  ___| |_ ___  _ __ _ __ ___
-#   | __| '__/ _` | '_ \/ __|  _/ _ \| '__| '_ ` _ \
-#   | |_| | | (_| | | | \__ \ || (_) | |  | | | | | |
-#    \__|_|  \__,_|_| |_|___/_| \___/|_|  |_| |_| |_|
-###############################################################
-
 transform_name = "transform"
 transform_tags = [
-  "cluster",
-  "transform-node"]
-transform_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-transform-node"]
+transform_count = 1
 transform_machine_type = "n1-standard-1"
 transform_network_cidr = "10.0.15.0/24"
 
-###############################################################
-#                           | (_)           | | (_)
-#     ___ ___   ___  _ __ __| |_ _ __   __ _| |_ _ _ __   __ _
-#    / __/ _ \ / _ \| '__/ _` | | '_ \ / _` | __| | '_ \ / _` |
-#   | (_| (_) | (_) | | | (_| | | | | | (_| | |_| | | | | (_| |
-#    \___\___/ \___/|_|  \__,_|_|_| |_|\__,_|\__|_|_| |_|\__, |
-#                                                         __/ |
-#                                                        |___/
-###############################################################
-
 coordinating_name = "coordinating"
 coordinating_tags = [
-  "cluster",
-  "coordinating-node"]
-coordinating_count = 3
+  "all",
+  "elasticsearch-cluster",
+  "elasticsearch-coordinating-node"]
+coordinating_count = 1
 coordinating_machine_type = "n1-standard-2"
 coordinating_network_cidr = "10.0.16.0/24"
 
-###############################################################
-#   | |  (_) |
-#   | | ___| |__   __ _ _ __   __ _
-#   | |/ / | '_ \ / _` | '_ \ / _` |
-#   |   <| | |_) | (_| | | | | (_| |
-#   |_|\_\_|_.__/ \__,_|_| |_|\__,_|
-###############################################################
-
 kibana_name = "kibana"
 kibana_tags = [
+  "all",
   "kibana"]
-kibana_count = 3
+kibana_count = 1
 kibana_machine_type = "n1-standard-2"
 kibana_network_cidr = "10.0.17.0/24"
 
-###############################################################
-#        | (_)          | |
-#     ___| |_  ___ _ __ | |_
-#    / __| | |/ _ \ '_ \| __|
-#   | (__| | |  __/ | | | |_
-#    \___|_|_|\___|_| |_|\__|
-###############################################################
+kibana_client_name = "kibana-client"
+kibana_client_tags = [
+  "all",
+  "kibana-client"]
+kibana_client_count = 1
+kibana_client_machine_type = "n1-standard-1"
+kibana_client_network_cidr = "10.0.18.0/24"
 
-client_name = "client"
-client_tags = [
-  "client"]
-client_count = 3
-client_machine_type = "n1-standard-1"
-client_network_cidr = "10.0.18.0/24"
+logstash_shipper_name = "logstash-shipper"
+logstash_shipper_tags = [
+  "all",
+  "logstash",
+  "logstash-shipper"]
+logstash_shipper_count = 3
+logstash_shipper_machine_type = "n1-standard-1"
+logstash_shipper_network_cidr = "10.0.19.0/24"
 
-###############################################################
-#   | |             | | (_)
-#   | |__   __ _ ___| |_ _  ___  _ __
-#   | '_ \ / _` / __| __| |/ _ \| '_ \
-#   | |_) | (_| \__ \ |_| | (_) | | | |
-#   |_.__/ \__,_|___/\__|_|\___/|_| |_|
-###############################################################
+logstash_indexer_name = "logstash-indexer"
+logstash_indexer_tags = [
+  "all",
+  "logstash",
+  "logstash-indexer"]
+logstash_indexer_count = 3
+logstash_indexer_machine_type = "n1-standard-1"
+logstash_indexer_network_cidr = "10.0.20.0/24"
 
 bastion_name = "bastion"
 bastion_tags = [

@@ -38,11 +38,20 @@ resource "google_compute_address" "kibana" {
   count = var.kibana_count
 }
 
-resource "google_compute_address" "client" {
-  name = "${var.client_name}${count.index}"
-  count = var.client_count
+resource "google_compute_address" "kibana-client" {
+  name = "${var.kibana_client_name}${count.index}"
+  count = var.kibana_client_count
 }
 
+resource "google_compute_address" "logstash-shipper-client" {
+  name = "${var.logstash_shipper_name}${count.index}"
+  count = var.logstash_shipper_count
+}
+
+resource "google_compute_address" "logstash-indexer-client" {
+  name = "${var.logstash_indexer_name}${count.index}"
+  count = var.logstash_indexer_count
+}
 resource "google_compute_address" "bastion" {
   name = "${var.bastion_name}"
 }

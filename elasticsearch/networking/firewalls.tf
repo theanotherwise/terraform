@@ -1,49 +1,34 @@
-resource "google_compute_firewall" "from-bastion-to-cluster" {
+resource "google_compute_firewall" "from-bastion-to-all" {
   name = "from-bastion-to-cluster"
   network = google_compute_network.network.name
 
+  direction = "INGRESS"
+
+  source_tags = [
+    "bastion"]
+  target_tags = [
+    "all"]
+
   allow {
     protocol = "tcp"
     ports = [
       "22"]
   }
-
-  direction = "INGRESS"
-  target_tags = [
-    "cluster"]
-
-  source_tags = [
-    "bastion"]
 
   depends_on = [
     google_compute_network.network]
 }
 
-resource "google_compute_firewall" "from-bastion-to-kibana" {
-  name = "from-bastion-to-kibana"
+resource "google_compute_firewall" "from-kibana-client-to-kibana" {
+  name = "from-kibana-client-to-kibana"
   network = google_compute_network.network.name
 
-  allow {
-    protocol = "tcp"
-    ports = [
-      "22"]
-  }
-
   direction = "INGRESS"
+
+  source_tags = [
+    "kibana-client"]
   target_tags = [
     "kibana"]
-
-  source_tags = [
-    "bastion"]
-
-  depends_on = [
-    google_compute_network.network]
-}
-
-
-resource "google_compute_firewall" "from-client-to-kibana" {
-  name = "from-client-to-kibana"
-  network = google_compute_network.network.name
 
   allow {
     protocol = "tcp"
@@ -51,32 +36,28 @@ resource "google_compute_firewall" "from-client-to-kibana" {
       "5601"]
   }
 
-  direction = "INGRESS"
-  target_tags = [
-    "kibana"]
-
-  source_tags = [
-    "client"]
-
   depends_on = [
     google_compute_network.network]
 }
 
-resource "google_compute_firewall" "from-internet-to-client" {
-  name = "from-internet-to-client"
+resource "google_compute_firewall" "from-internet-to-kibana-client" {
+  name = "from-internet-to-kibana-client"
   network = google_compute_network.network.name
+
+  direction = "INGRESS"
+
+  source_ranges = [
+    "0.0.0.0/0"]
+  target_tags = [
+    "kibana-client"]
 
   allow {
     protocol = "tcp"
     ports = [
-      "22"]
+      "22",
+      "80",
+      "443"]
   }
-
-  direction = "INGRESS"
-  source_ranges = [
-    "0.0.0.0/0"]
-  target_tags = [
-    "client"]
 
   depends_on = [
     google_compute_network.network]
@@ -86,17 +67,41 @@ resource "google_compute_firewall" "from-internet-to-bastion" {
   name = "from-internet-to-bastion"
   network = google_compute_network.network.name
 
+  direction = "INGRESS"
+
+  source_ranges = [
+    "0.0.0.0/0"]
+  target_tags = [
+    "bastion"]
+
   allow {
     protocol = "tcp"
     ports = [
       "22"]
   }
 
+  depends_on = [
+    google_compute_network.network]
+}
+
+resource "google_compute_firewall" "inside-elsticsearch-cluster" {
+  name = "inside-elsticsearch-cluster"
+  network = google_compute_network.network.name
+
   direction = "INGRESS"
-  source_ranges = [
-    "0.0.0.0/0"]
+
   target_tags = [
-    "bastion"]
+    "elasticsearch-cluster"]
+
+  source_tags = [
+    "elasticsearch-cluster"]
+
+  allow {
+    protocol = "tcp"
+    ports = [
+      "9200",
+      "9300"]
+  }
 
   depends_on = [
     google_compute_network.network]

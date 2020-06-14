@@ -182,17 +182,65 @@ module "kibana" {
     "module.bastion"]
 }
 
-module "client" {
+module "kibana-client" {
   source = "./instances"
 
-  node_name = var.client_name
-  node_machine_type = var.client_machine_type
-  node_count = var.client_count
-  node_tags = var.client_tags
+  node_name = var.kibana_client_name
+  node_machine_type = var.kibana_client_machine_type
+  node_count = var.kibana_client_count
+  node_tags = var.kibana_client_tags
   node_image = var.image
 
-  provider_address = module.networking.address_client_address
-  provider_subnetwork_name = module.networking.subnetwork_client_name
+  provider_address = module.networking.address_kibana_client_address
+  provider_subnetwork_name = module.networking.subnetwork_kibana_client_name
+
+  bastion_internal_address = module.bastion.bastion_internal_address
+  bastion_external_address = module.bastion.bastion_external_address
+
+  ansible_ssh_key_pub = var.ansible_ssh_key_pub
+
+  dependencies = [
+    "module.defaults",
+    "module.networking",
+    "module.bastion",
+    "module.kibana"]
+}
+
+module "logstash-shipper-client" {
+  source = "./instances"
+
+  node_name = var.logstash_shipper_name
+  node_machine_type = var.logstash_shipper_machine_type
+  node_count = var.logstash_shipper_count
+  node_tags = var.logstash_shipper_tags
+  node_image = var.image
+
+  provider_address = module.networking.address_logstash_shipper_address
+  provider_subnetwork_name = module.networking.subnetwork_logstash_shipper_name
+
+  bastion_internal_address = module.bastion.bastion_internal_address
+  bastion_external_address = module.bastion.bastion_external_address
+
+  ansible_ssh_key_pub = var.ansible_ssh_key_pub
+
+  dependencies = [
+    "module.defaults",
+    "module.networking",
+    "module.bastion",
+    "module.kibana"]
+}
+
+module "logstash-indexer-client" {
+  source = "./instances"
+
+  node_name = var.logstash_indexer_name
+  node_machine_type = var.logstash_indexer_machine_type
+  node_count = var.logstash_indexer_count
+  node_tags = var.logstash_indexer_tags
+  node_image = var.image
+
+  provider_address = module.networking.address_logstash_indexer_address
+  provider_subnetwork_name = module.networking.subnetwork_logstash_indexer_name
 
   bastion_internal_address = module.bastion.bastion_internal_address
   bastion_external_address = module.bastion.bastion_external_address
