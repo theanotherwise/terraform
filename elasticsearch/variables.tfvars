@@ -29,7 +29,7 @@ voting_only_tags = [
   "all",
   "elasticsearch-cluster",
   "elasticsearch-voting-only-node"]
-voting_only_count = 1
+voting_only_count = 3
 voting_only_machine_type = "n1-standard-1"
 voting_only_network_cidr = "10.0.11.0/24"
 
@@ -47,7 +47,7 @@ data_tags = [
   "all",
   "elasticsearch-cluster",
   "elasticsearch-data-node"]
-data_count = 2
+data_count = 3
 data_machine_type = "n1-standard-1"
 data_network_cidr = "10.0.13.0/24"
 
