@@ -19,7 +19,7 @@ resource "google_dns_record_set" "txt-seems-legal" {
 
   rrdatas = [
     "\"v=spf1 include:_spf.google.com ~all\"",
-    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkE0sIXS3aBQN5HsnnJIS8MRaUMmUaXMVO7e6ZYprMP2cd3KGxAGSeWN1IjuWjYzHH8P8WX8OGDczmc1AECdxe/0meix0di/Cr093eQdG7HIKe4NFw94ENxNrK4GrPAZE6DEZ71KCGXDX4IBWYK8JQv/lOx3Jlsl8iWw3cchrfqwIDAQAB"]
+    "\"v=DKIM1;\" \"k=rsa;\" \"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkE0sIXS3aBQN5HsnnJIS8MRaUMmUaXMVO7e6ZYprMP2cd3KGxAGSeWN1IjuWjYzHH8P8WX8OGDczmc1AECdxe/0meix0di/Cr093eQdG7HIKe4NFw94ENxNrK4GrPAZE6DEZ71KCGXDX4IBWYK8JQv/lOx3Jlsl8iWw3cchrfqwIDAQAB\""]
 
   depends_on = [
     google_dns_managed_zone.public-seems-legal]
@@ -37,6 +37,71 @@ resource "google_dns_record_set" "mx-seems-legal" {
     "5 alt2.aspmx.l.google.com.",
     "10 alt3.aspmx.l.google.com.",
     "10 alt4.aspmx.l.google.com."]
+
+  depends_on = [
+    google_dns_managed_zone.public-seems-legal]
+}
+
+resource "google_dns_record_set" "cname-gmail-seems-legal" {
+  name = "gmail.seems.legal."
+  managed_zone = google_dns_managed_zone.public-seems-legal.name
+  type = "CNAME"
+  ttl = 300
+
+  rrdatas = [
+    "ghs.googlehosted.com."]
+
+  depends_on = [
+    google_dns_managed_zone.public-seems-legal]
+}
+
+resource "google_dns_record_set" "cname-calendar-seems-legal" {
+  name = "calendar.seems.legal."
+  managed_zone = google_dns_managed_zone.public-seems-legal.name
+  type = "CNAME"
+  ttl = 300
+
+  rrdatas = [
+    "ghs.googlehosted.com."]
+
+  depends_on = [
+    google_dns_managed_zone.public-seems-legal]
+}
+
+resource "google_dns_record_set" "cname-drive-seems-legal" {
+  name = "drive.seems.legal."
+  managed_zone = google_dns_managed_zone.public-seems-legal.name
+  type = "CNAME"
+  ttl = 300
+
+  rrdatas = [
+    "ghs.googlehosted.com."]
+
+  depends_on = [
+    google_dns_managed_zone.public-seems-legal]
+}
+
+resource "google_dns_record_set" "cname-groups-seems-legal" {
+  name = "groups.seems.legal."
+  managed_zone = google_dns_managed_zone.public-seems-legal.name
+  type = "CNAME"
+  ttl = 300
+
+  rrdatas = [
+    "ghs.googlehosted.com."]
+
+  depends_on = [
+    google_dns_managed_zone.public-seems-legal]
+}
+
+resource "google_dns_record_set" "cname-sites-seems-legal" {
+  name = "sites.seems.legal."
+  managed_zone = google_dns_managed_zone.public-seems-legal.name
+  type = "CNAME"
+  ttl = 300
+
+  rrdatas = [
+    "ghs.googlehosted.com."]
 
   depends_on = [
     google_dns_managed_zone.public-seems-legal]
