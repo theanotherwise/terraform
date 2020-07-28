@@ -116,13 +116,13 @@ ansible-playbook -i inventory.ini openshift-ansible/playbooks/adhoc/uninstall.ym
 htpasswd -c /etc/origin/master/htpasswd admin
 ```
 
-
 ## Diagnostics
 
-#### Get pods which status is not RUNNING
+#### Get pods which status is not Running
 ```bash
 for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do 
   echo "Namespace: $i"
   oc get pods -n $i 2>/dev/null | tail -n +2 | awk '$3!="Running" {print $1,$3}' 
+  echo
 done
 ```
