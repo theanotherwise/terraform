@@ -119,7 +119,7 @@ htpasswd -c /etc/origin/master/htpasswd admin
 
 ## Diagnostics
 
-#### Check pods which status is not RUNNING
+#### Get pods which status is not RUNNING
 ```bash
 for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do 
   echo "Namespace: $i"
