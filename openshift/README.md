@@ -1,4 +1,4 @@
-# seems.legal
+# openshift
 
 ## Management
 ```bash
@@ -88,21 +88,19 @@ openshift_disable_check=disk_availability,memory_availability,docker_storage
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 
 [masters]
-openshift-master-0
+openshift-master-0.linuxpolska.localdomain
 
 [etcd]
-openshift-master-0
+openshift-master-[0:1].linuxpolska.localdomain
 
 [nodes]
-openshift-master-0  openshift_node_group_name='node-config-master'
-openshift-master-1  openshift_node_group_name='node-config-master'
-openshift-compute-0 openshift_node_group_name='node-config-compute'
-openshift-compute-1 openshift_node_group_name='node-config-compute'
-openshift-infra-2   openshift_node_group_name='node-config-infra'
+openshift-master-[0:1].linuxpolska.localdomain  openshift_node_group_name='node-config-master'
+openshift-compute-[0:1].linuxpolska.localdomain openshift_node_group_name='node-config-compute'
+openshift-infra-0.linuxpolska.localdomain       openshift_node_group_name='node-config-infra'
 EndOfMessage
 ```
 
-## Deploy openshift
+## Deploy OpenShift
 
 ```bash
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
