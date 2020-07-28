@@ -63,7 +63,7 @@ cat /etc/NetworkManager/NetworkManager.conf
 cat /etc/resolv.conf
 ```
 
-## Ansible inventory file
+## Ansible `inventory.ini`
 
 ```bash
 cat > inventory.ini << "EndOfMessage"
@@ -98,7 +98,7 @@ openshift-infra-0.linuxpolska.localdomain   openshift_node_group_name='node-conf
 EndOfMessage
 ```
 
-## Running ansible
+## OpenShift ansible playbooks
 
 #### Install
 ```bash
@@ -111,12 +111,18 @@ ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/adhoc/uninstall.yml
 ```
 
+## Last steps
+```bash
+htpasswd -c /etc/origin/master/htpasswd admin
+```
+
+
 ## Diagnostics
 
-#### Check pods which status is `!= RUNNING`
+#### Check pods which status is not RUNNING
 ```bash
 for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do 
   echo "Namespace: $i"
-  oc get pods -n $i 2>/dev/null | tail -n +2 | awk '$3!="Running" {print $1}' 
+  oc get pods -n $i 2>/dev/null | tail -n +2 | awk '$3!="Running" {print $1,$3}' 
 done
 ```
