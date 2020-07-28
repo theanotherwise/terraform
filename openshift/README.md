@@ -111,7 +111,7 @@ ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/adhoc/uninstall.yml
 ```
 
-## Last steps
+### Last steps
 ```bash
 htpasswd -c /etc/origin/master/htpasswd admin
 ```
