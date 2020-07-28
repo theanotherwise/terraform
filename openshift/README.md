@@ -11,7 +11,6 @@ terraform plan -var-file=variables.tfvars
 
 ## Node names
 ```bash
-cat << "EndOfMessage"
 openshift-compute-0
 openshift-compute-1
 ..
@@ -26,7 +25,6 @@ openshift-master-0
 openshift-master-1
 (...)
 openshift-master-n
-EndOfMessage
 ```
 
 ## Deploy ssh keys if required
