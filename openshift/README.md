@@ -38,7 +38,7 @@ for i in $HOST_LIST ; do
 done
 ```
 
-## Prepare network
+## Prepare network on nodes (just on first run)
 ```bash
 sudo -i rm -f /etc/resolv.conf
 sudo -i rm -f /etc/NetworkManager/NetworkManager.conf
@@ -63,7 +63,7 @@ cat /etc/NetworkManager/NetworkManager.conf
 cat /etc/resolv.conf
 ```
 
-## invenfory.cfg
+## Ansible inventory file
 
 ```bash
 cat > inventory.ini << "EndOfMessage"
@@ -89,18 +89,34 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift-master-0.linuxpolska.localdomain
 
 [etcd]
-openshift-master-[0:1].linuxpolska.localdomain
+openshift-master-0.linuxpolska.localdomain
 
 [nodes]
-openshift-master-[0:1].linuxpolska.localdomain  openshift_node_group_name='node-config-master'
-openshift-compute-[0:1].linuxpolska.localdomain openshift_node_group_name='node-config-compute'
-openshift-infra-0.linuxpolska.localdomain       openshift_node_group_name='node-config-infra'
+openshift-master-0.linuxpolska.localdomain  openshift_node_group_name='node-config-master'
+openshift-compute-0.linuxpolska.localdomain openshift_node_group_name='node-config-compute'
+openshift-infra-0.linuxpolska.localdomain   openshift_node_group_name='node-config-infra'
 EndOfMessage
 ```
 
-## Deploy OpenShift
+## Running ansible
 
+#### Install
 ```bash
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+```
+
+### Uninstall
+```bash
+ansible-playbook -i inventory.ini openshift-ansible/playbooks/adhoc/uninstall.yml
+```
+
+## Diagnostics
+
+#### Check pods which status is `!= RUNNING`
+```bash
+for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do 
+  echo "Namespace: $i"
+  oc get pods -n $i 2>/dev/null | tail -n +2 | awk '$3!="Running" {print $1}' 
+done
 ```

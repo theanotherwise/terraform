@@ -23,7 +23,7 @@ bastion_network_cidr = "10.0.1.0/24"
 
 openshift_master_name = "openshift-master"
 openshift_master_image = "centos-cloud/centos-7"
-openshift_master_count = 2
+openshift_master_count = 1
 openshift_master_tags = [
   "openshift",
   "openshift-master",
@@ -33,7 +33,7 @@ openshift_master_network_cidr = "10.0.10.0/24"
 
 openshift_compute_name = "openshift-compute"
 openshift_compute_image = "centos-cloud/centos-7"
-openshift_compute_count = 2
+openshift_compute_count = 1
 openshift_compute_tags = [
   "openshift",
   "openshift-compute",
