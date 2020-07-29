@@ -21,7 +21,7 @@ module "instances" {
   openshift_compute_network_cidr = var.openshift_compute_network_cidr
   openshift_compute_machine_type = var.openshift_compute_machine_type
   openshift_compute_subnetwork = module.networking.openshift_compute_subnetwork_name
-  openshift_compute_addresses = module.networking.openshift_compute_addresses
+//  openshift_compute_addresses = module.networking.openshift_compute_addresses
 
   openshift_infra_name = var.openshift_infra_name
   openshift_infra_image = var.openshift_infra_image
@@ -30,7 +30,16 @@ module "instances" {
   openshift_infra_network_cidr = var.openshift_infra_network_cidr
   openshift_infra_machine_type = var.openshift_infra_machine_type
   openshift_infra_subnetwork = module.networking.openshift_infra_subnetwork_name
-  openshift_infra_addresses = module.networking.openshift_infra_addresses
+//  openshift_infra_addresses = module.networking.openshift_infra_addresses
+
+  openshift_lb_name = var.openshift_lb_name
+  openshift_lb_image = var.openshift_lb_image
+  openshift_lb_count = var.openshift_lb_count
+  openshift_lb_tags = var.openshift_lb_tags
+  openshift_lb_network_cidr = var.openshift_lb_network_cidr
+  openshift_lb_machine_type = var.openshift_lb_machine_type
+  openshift_lb_subnetwork = module.networking.openshift_lb_subnetwork_name
+  openshift_lb_addresses = module.networking.openshift_lb_addresses
 
   dependencies = [
     "module.defaults",

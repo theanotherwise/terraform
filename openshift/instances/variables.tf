@@ -66,9 +66,9 @@ variable "openshift_compute_subnetwork" {
   type = string
 }
 
-variable "openshift_compute_addresses" {
-  type = list(string)
-}
+//variable "openshift_compute_addresses" {
+//  type = list(string)
+//}
 
 variable "openshift_infra_name" {
   type = string
@@ -77,7 +77,6 @@ variable "openshift_infra_name" {
 variable "openshift_infra_image" {
   type = string
 }
-
 
 variable "openshift_infra_count" {
   type = number
@@ -99,7 +98,39 @@ variable "openshift_infra_subnetwork" {
   type = string
 }
 
-variable "openshift_infra_addresses" {
+//variable "openshift_infra_addresses" {
+//  type = list(string)
+//}
+
+variable "openshift_lb_name" {
+  type = string
+}
+
+variable "openshift_lb_image" {
+  type = string
+}
+
+variable "openshift_lb_count" {
+  type = number
+}
+
+variable "openshift_lb_tags" {
+  type = list(string)
+}
+
+variable "openshift_lb_network_cidr" {
+  type = string
+}
+
+variable "openshift_lb_machine_type" {
+  type = string
+}
+
+variable "openshift_lb_subnetwork" {
+  type = string
+}
+
+variable "openshift_lb_addresses" {
   type = list(string)
 }
 

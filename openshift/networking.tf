@@ -26,4 +26,8 @@ module "networking" {
   openshift_infra_name = var.openshift_infra_name
   openshift_infra_count = var.openshift_infra_count
   openshift_infra_network_cidr = var.openshift_infra_network_cidr
+
+  openshift_lb_name = var.openshift_lb_name
+  openshift_lb_count = var.openshift_lb_count
+  openshift_lb_network_cidr = var.openshift_lb_network_cidr
 }

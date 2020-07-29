@@ -28,7 +28,7 @@ openshift_master_tags = [
   "openshift",
   "openshift-master",
   "all"]
-openshift_master_machine_type = "n1-standard-4"
+openshift_master_machine_type = "n1-standard-8"
 openshift_master_network_cidr = "10.0.10.0/24"
 
 openshift_compute_name = "openshift-compute"
@@ -50,3 +50,13 @@ openshift_infra_tags = [
   "all"]
 openshift_infra_machine_type = "n1-standard-8"
 openshift_infra_network_cidr = "10.0.12.0/24"
+
+openshift_lb_name = "openshift-lb"
+openshift_lb_image = "centos-cloud/centos-7"
+openshift_lb_count = 1
+openshift_lb_tags = [
+  "openshift",
+  "openshift-lb",
+  "all"]
+openshift_lb_machine_type = "n1-standard-8"
+openshift_lb_network_cidr = "10.0.13.0/24"

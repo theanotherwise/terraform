@@ -44,7 +44,7 @@ sudo -i rm -f /etc/resolv.conf
 sudo -i rm -f /etc/NetworkManager/NetworkManager.conf
 
 sudo -i tee /etc/resolv.conf <<"EndOfMessage"
-search linuxpolska.localdomain
+search local
 nameserver 169.254.169.254
 EndOfMessage
 
@@ -75,7 +75,7 @@ etcd
 [OSEv3:vars]
 ansible_ssh_user=ansible
 ansible_become=true
-openshift_master_default_subdomain=linuxpolska.localdomain
+openshift_master_default_subdomain=local
 deployment_type=origin
 
 [nodes:vars]
@@ -86,15 +86,15 @@ openshift_disable_check=disk_availability,memory_availability,docker_storage
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 
 [masters]
-openshift-master-0.linuxpolska.localdomain
+openshift-master-0.local
 
 [etcd]
-openshift-master-0.linuxpolska.localdomain
+openshift-master-0.local
 
 [nodes]
-openshift-master-0.linuxpolska.localdomain  openshift_node_group_name='node-config-master'
-openshift-compute-0.linuxpolska.localdomain openshift_node_group_name='node-config-compute'
-openshift-infra-0.linuxpolska.localdomain   openshift_node_group_name='node-config-infra'
+openshift-master-0.local  openshift_node_group_name='node-config-master'
+openshift-compute-0.local openshift_node_group_name='node-config-compute'
+openshift-infra-0.local   openshift_node_group_name='node-config-infra'
 EndOfMessage
 ```
 
@@ -102,15 +102,15 @@ EndOfMessage
 
 ```bash
 [masters]
-openshift-master-0.linuxpolska.localdomain
+openshift-master-0.local
 
 [etcd]
-openshift-master-0.linuxpolska.localdomain
+openshift-master-0.local
 
 [nodes]
-openshift-master-0.linuxpolska.localdomain      openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
-openshift-infra-0.linuxpolska.localdomain       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"          openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
-openshift-compute-0.linuxpolska.localdomain     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"        openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-master-0.local      openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-infra-0.local       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"          openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-compute-0.local     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"        openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
 
 [OSEv3:children]
 masters
@@ -122,8 +122,8 @@ ansible_user=ansible
 openshift_deployment_type=origin
 ansible_become=true
 openshift_release=v3.9
-openshift_master_default_subdomain=linuxpolska.localdomain
-openshift_master_cluster_hostname=openshift-master-0.linuxpolska.localdomain
+openshift_master_default_subdomain=local
+openshift_master_cluster_hostname=openshift-master-0.local
 debug_level=2
 template_service_broker_selector={'region': 'infra'}
 ```

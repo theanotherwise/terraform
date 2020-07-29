@@ -69,3 +69,15 @@ variable "openshift_infra_count" {
 variable "openshift_infra_network_cidr" {
   type = string
 }
+
+variable "openshift_lb_name" {
+  type = string
+}
+
+variable "openshift_lb_count" {
+  type = number
+}
+
+variable "openshift_lb_network_cidr" {
+  type = string
+}

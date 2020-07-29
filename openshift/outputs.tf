@@ -13,3 +13,7 @@ output "openshift_compute_nodes" {
 output "openshift_infra_nodes" {
   value = module.instances.openshift_infra_nodes_names
 }
+
+output "openshift_lb_nodes" {
+  value = module.instances.openshift_lb_nodes_names
+}

@@ -1,6 +1,6 @@
-resource "google_dns_record_set" "openshift-master-linuxpolska-localdomain" {
-  name = "openshift-master-${count.index}.linuxpolska.localdomain."
-  managed_zone = google_dns_managed_zone.private-linuxpolska-localdomain.name
+resource "google_dns_record_set" "openshift-master-local" {
+  name = "openshift-master-${count.index}.local."
+  managed_zone = google_dns_managed_zone.private-local.name
   type = "A"
   ttl = 300
   count = var.openshift_master_count
@@ -9,33 +9,47 @@ resource "google_dns_record_set" "openshift-master-linuxpolska-localdomain" {
     "${element(var.openshift_master_internal_addresses, count.index)}"]
 
   depends_on = [
-    google_dns_managed_zone.private-linuxpolska-localdomain]
+    google_dns_managed_zone.private-local]
 }
 
-resource "google_dns_record_set" "openshift-compute-linuxpolska-localdomain" {
-  name = "openshift-compute-${count.index}.linuxpolska.localdomain."
-  managed_zone = google_dns_managed_zone.private-linuxpolska-localdomain.name
+//resource "google_dns_record_set" "openshift-compute-local" {
+//  name = "openshift-compute-${count.index}.local."
+//  managed_zone = google_dns_managed_zone.private-local.name
+//  type = "A"
+//  ttl = 300
+//  count = var.openshift_compute_count
+//
+//  rrdatas = [
+//    "${element(var.openshift_compute_internal_addresses, count.index)}"]
+//
+//  depends_on = [
+//    google_dns_managed_zone.private-local]
+//}
+//
+//resource "google_dns_record_set" "openshift-infra-local" {
+//  name = "openshift-infra-${count.index}.local."
+//  managed_zone = google_dns_managed_zone.private-local.name
+//  type = "A"
+//  ttl = 300
+//  count = var.openshift_infra_count
+//
+//  rrdatas = [
+//    "${element(var.openshift_infra_internal_addresses, count.index)}"]
+//
+//  depends_on = [
+//    google_dns_managed_zone.private-local]
+//}
+
+resource "google_dns_record_set" "openshift-lb-local" {
+  name = "openshift-lb-${count.index}.local."
+  managed_zone = google_dns_managed_zone.private-local.name
   type = "A"
   ttl = 300
-  count = var.openshift_compute_count
+  count = var.openshift_lb_count
 
   rrdatas = [
-    "${element(var.openshift_compute_internal_addresses, count.index)}"]
+    "${element(var.openshift_lb_internal_addresses, count.index)}"]
 
   depends_on = [
-    google_dns_managed_zone.private-linuxpolska-localdomain]
-}
-
-resource "google_dns_record_set" "openshift-infra-linuxpolska-localdomain" {
-  name = "openshift-infra-${count.index}.linuxpolska.localdomain."
-  managed_zone = google_dns_managed_zone.private-linuxpolska-localdomain.name
-  type = "A"
-  ttl = 300
-  count = var.openshift_infra_count
-
-  rrdatas = [
-    "${element(var.openshift_infra_internal_addresses, count.index)}"]
-
-  depends_on = [
-    google_dns_managed_zone.private-linuxpolska-localdomain]
+    google_dns_managed_zone.private-local]
 }

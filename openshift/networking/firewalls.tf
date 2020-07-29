@@ -79,8 +79,8 @@ resource "google_compute_firewall" "from-internet-to-openshift-masters" {
     google_compute_network.network]
 }
 
-resource "google_compute_firewall" "from-internet-to-openshift-compute" {
-  name = "from-internet-to-openshift-compute"
+resource "google_compute_firewall" "from-internet-to-openshift-lb" {
+  name = "from-internet-to-openshift-lb"
   network = google_compute_network.network.name
 
   direction = "INGRESS"
@@ -88,7 +88,7 @@ resource "google_compute_firewall" "from-internet-to-openshift-compute" {
   source_ranges = [
     "0.0.0.0/0"]
   target_tags = [
-    "openshift-compute"]
+    "openshift-lb"]
 
   allow {
     protocol = "tcp"
