@@ -165,6 +165,7 @@ done
 
 #### Get resources
 
+```bash
 NAMESPACES="default example"
 RESOURCES="pods pvc pv sc cm ingress deployments svc"
 
@@ -175,6 +176,7 @@ for i in $NAMESPACES ; do
   done
   echo
 done
+```
 
 #### login as admin
 ```bash
