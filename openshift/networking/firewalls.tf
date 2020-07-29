@@ -10,9 +10,7 @@ resource "google_compute_firewall" "from-bastion-to-all" {
     "all"]
 
   allow {
-    protocol = "tcp"
-    ports = [
-      "22"]
+    protocol = "all"
   }
 
   depends_on = [
@@ -73,6 +71,30 @@ resource "google_compute_firewall" "from-internet-to-openshift-masters" {
   allow {
     protocol = "tcp"
     ports = [
+      "443",
+      "8443"]
+  }
+
+  depends_on = [
+    google_compute_network.network]
+}
+
+resource "google_compute_firewall" "from-internet-to-openshift-compute" {
+  name = "from-internet-to-openshift-compute"
+  network = google_compute_network.network.name
+
+  direction = "INGRESS"
+
+  source_ranges = [
+    "0.0.0.0/0"]
+  target_tags = [
+    "openshift-compute"]
+
+  allow {
+    protocol = "tcp"
+    ports = [
+      "80",
+      "8080",
       "443",
       "8443"]
   }

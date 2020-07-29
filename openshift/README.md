@@ -126,3 +126,46 @@ for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do
   echo
 done
 ```
+
+#### Get resources
+
+NAMESPACES="default example"
+RESOURCES="pods pvc pv sc cm ingress deployments svc"
+
+for i in $NAMESPACES ; do
+  echo "Namespace: $i"
+  for j in $RESOURCES ; do
+    oc get "$j" -n "$i" 
+  done
+  echo
+done
+
+#### login as admin
+```bash
+oc login -u system:admin -n default
+```
+
+#### Pushing docker images
+
+```
+oc login
+oc whoami -t
+
+docker logout
+docker login -u admin -p XXX 172.30.19.100:5000
+
+docker pull grafana/grafana:latest
+
+docker tag docker.io/grafana/grafana 172.30.19.100:5000/example/grafana:latest
+docker push 172.30.19.100:5000/example/grafana:latest
+
+oc get is
+```
+
+####
+
+```bash
+nsenter -t PID -n ip addr
+
+conntrack -L
+```
