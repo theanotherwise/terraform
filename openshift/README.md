@@ -175,3 +175,19 @@ nsenter -t PID -n ip addr
 
 conntrack -L
 ```
+
+#### Certificates `OpenShift 3.9`
+
+```bash
+redeploy-certificates.yml
+
+openshift-etcd/redeploy-ca.yml
+
+openshift-master/redeploy-certificates.yml
+openshift-master/redeploy-openshift-ca.yml
+
+openshift-node/redeploy-certificates.yml
+
+openshift-hosted/redeploy-registry-certificates.yml
+openshift-hosted/redeploy-router-certificates.yml
+```
