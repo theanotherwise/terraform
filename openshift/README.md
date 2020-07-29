@@ -1,4 +1,4 @@
-# OpenShift 3.11
+# OpenShift 3.9 - 3.11
 
 ## Management
 ```bash
@@ -63,7 +63,7 @@ cat /etc/NetworkManager/NetworkManager.conf
 cat /etc/resolv.conf
 ```
 
-## Ansible `inventory.ini`
+## Ansible `inventory.ini` 3.11
 
 ```bash
 cat > inventory.ini << "EndOfMessage"
@@ -96,6 +96,36 @@ openshift-master-0.linuxpolska.localdomain  openshift_node_group_name='node-conf
 openshift-compute-0.linuxpolska.localdomain openshift_node_group_name='node-config-compute'
 openshift-infra-0.linuxpolska.localdomain   openshift_node_group_name='node-config-infra'
 EndOfMessage
+```
+
+## Ansible `inventory.ini` Openshift 3.9
+
+```bash
+[masters]
+openshift-master-0.linuxpolska.localdomain
+
+[etcd]
+openshift-master-0.linuxpolska.localdomain
+
+[nodes]
+openshift-master-0.linuxpolska.localdomain      openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-infra-0.linuxpolska.localdomain       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"          openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-compute-0.linuxpolska.localdomain     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"        openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+
+[OSEv3:children]
+masters
+nodes
+etcd
+yes
+[OSEv3:vars]
+ansible_user=ansible
+openshift_deployment_type=origin
+ansible_become=true
+openshift_release=v3.9
+openshift_master_default_subdomain=linuxpolska.localdomain
+openshift_master_cluster_hostname=openshift-master-0.linuxpolska.localdomain
+debug_level=2
+template_service_broker_selector={'region': 'infra'}
 ```
 
 #### If required ommit some checks
