@@ -1,4 +1,4 @@
-# openshift
+# OpenShift 3.11
 
 ## Management
 ```bash
@@ -96,6 +96,12 @@ openshift-master-0.linuxpolska.localdomain  openshift_node_group_name='node-conf
 openshift-compute-0.linuxpolska.localdomain openshift_node_group_name='node-config-compute'
 openshift-infra-0.linuxpolska.localdomain   openshift_node_group_name='node-config-infra'
 EndOfMessage
+```
+
+#### If required ommit some checks
+
+```bash
+openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
 ```
 
 ## OpenShift ansible playbooks
