@@ -178,6 +178,8 @@ conntrack -L
 
 #### Certificates `OpenShift 3.9`
 
+
+#### Fix certificates per playbook on x509 Error
 ```bash
 redeploy-certificates.yml
 
@@ -185,7 +187,10 @@ openshift-etcd/redeploy-ca.yml
 
 openshift-master/redeploy-certificates.yml
 openshift-master/redeploy-openshift-ca.yml
+```
 
+#### 
+```bash
 openshift-node/redeploy-certificates.yml
 
 openshift-hosted/redeploy-registry-certificates.yml
