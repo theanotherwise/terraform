@@ -183,6 +183,12 @@ openshift-master-0.local
 openshift-infra-0.local       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
 openshift-compute-0.local     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
 
+[nodes:vars]
+openshift_disable_check=disk_availability,memory_availability,docker_storage
+
+[masters:vars]
+openshift_disable_check=disk_availability,memory_availability,docker_storage
+
 [OSEv3:vars]
 ansible_user=ansible
 openshift_deployment_type=origin
