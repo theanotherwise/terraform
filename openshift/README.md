@@ -312,3 +312,59 @@ openshift-node/redeploy-certificates.yml
 openshift-hosted/redeploy-registry-certificates.yml
 openshift-hosted/redeploy-router-certificates.yml
 ```
+
+# Local Persistent Volume
+
+```bash
+LPV_ALIAS="grafana0"
+LPV_DIR=`mktemp -d $LPV_ALIAS-XXXXXXXXXX`
+
+mkdir "$LPV_DIR/pvc"
+mkdir "$LPV_DIR/pv"
+
+cat > $LPV_DIR/pvc-template.yml << EndOfMesage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: $LPV_ALIAS-pvc-XXXXX
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: $LPV_ALIAS-sc-XXXXX
+EndOfMesage
+
+cat > $LPV_DIR/pv-template.yml << EndOfMesage
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: $LPV_ALIAS-pv-XXXXX
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: $LPV_ALIAS-sc-XXXXX
+  local:
+    path: /mnt/local-storage
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - openshift-compute-0
+EndOfMesage
+
+for i in `seq -w 0 20` ; do 
+  cat $LPV_DIR/pvc-template.yml | sed "s/XXXXX/$i/g " > $LPV_DIR/pvc/$i.yml 
+  cat $LPV_DIR/pv-template.yml | sed "s/XXXXX/$i/g " > $LPV_DIR/pv/$i.yml
+done
+
+for i in `ls "$LPV_DIR/pv" | xargs -0` ; do oc create -f ./$LPV_DIR/pv/$i ; done
+for i in `ls "$LPV_DIR/pvc" | xargs -0` ; do oc create -f ./$LPV_DIR/pvc/$i ; done
+```
