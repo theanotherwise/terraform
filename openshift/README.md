@@ -1,12 +1,22 @@
 # OpenShift 3.9 - 3.11
 
-## Management
+## Terraform management
 ```bash
 terraform apply -var-file=variables.tfvars
 
 terraform plan -var-file=variables.tfvars
 
 terraform plan -var-file=variables.tfvars
+```
+
+## OpenShift repository
+```
+git clone https://github.com/openshift/openshift-ansible.git
+
+git branch -a
+
+git checkout release-3.11 # for 3.11
+# git checkout release-3.9 # for 3.9
 ```
 
 ## Node names
@@ -27,6 +37,31 @@ openshift-master-1
 openshift-master-n
 ```
 
+## Access to Openshift
+```bash
+ssh-add terraform.id_rsa
+
+ssh -A -i terraform.id_rsa terraform@34.66.62.74
+```
+
+## Disable `systemd-resolved` on Bastion
+```bash
+sudo -i systemctl disable systemd-resolved
+sudo -i systemctl stop systemd-resolved
+
+sudo -i rm /etc/resolv.conf
+
+sudo -i tee /etc/resolv.conf <<"EndOfMessage"
+search local
+nameserver 169.254.169.254
+EndOfMessage
+```
+
+## Access to `OpenShift` nodes
+```bash
+ssh ansible@openshift-XXX-n.local
+```
+
 ## Deploy ssh keys if required
 ```bash
 ssh-keygen
@@ -36,6 +71,29 @@ HOST_LIST="openshift-compute-0 openshift-compute-1 openshift-infra-0 openshift-m
 for i in $HOST_LIST ; do 
   ssh-copy-id -i ~/.ssh/id_rsa.pub $i;
 done
+```
+
+## Install ansible 
+
+### Openshift `3.9` on CentOS 7
+```
+yum install ansible 
+```
+
+### Openshift `3.11` on Ubuntu 18 LTS from `apt`
+```bash
+apt-get update
+apt-get install -y ansible 
+```
+
+### Openshift `3.11` on Ubuntu 18 LTS from `pip` - latest version
+```bash
+apt-get update
+apt-get install -y python3-pip
+
+pip3 install --upgrade pip
+
+pip3 install ansible
 ```
 
 ## Prepare network on nodes (just on first run)
@@ -63,30 +121,20 @@ cat /etc/NetworkManager/NetworkManager.conf
 cat /etc/resolv.conf
 ```
 
-## Ansible `inventory.ini` 3.11
-
+## Ansible `inventory.ini` for Openshift `3.11`
 ```bash
 cat > inventory.ini << "EndOfMessage"
 [OSEv3:children]
 masters
 nodes
 etcd
-
-[OSEv3:vars]
-ansible_ssh_user=ansible
-ansible_become=true
-openshift_master_default_subdomain=local
-deployment_type=origin
-
-[nodes:vars]
-openshift_disable_check=disk_availability,memory_availability,docker_storage
-
-[masters:vars]
-openshift_disable_check=disk_availability,memory_availability,docker_storage
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+lb
 
 [masters]
 openshift-master-0.local
+
+[lb]
+openshift-lb-0.local
 
 [etcd]
 openshift-master-0.local
@@ -95,48 +143,59 @@ openshift-master-0.local
 openshift-master-0.local  openshift_node_group_name='node-config-master'
 openshift-compute-0.local openshift_node_group_name='node-config-compute'
 openshift-infra-0.local   openshift_node_group_name='node-config-infra'
+
+[OSEv3:vars]
+ansible_ssh_user=ansible
+openshift_deployment_type=origin
+ansible_become=true
+openshift_release=v3.11
+openshift_master_default_subdomain=apps.local
+openshift_master_cluster_hostname=openshift-master-0.local
+debug_level=2
 EndOfMessage
 ```
 
-## Ansible `inventory.ini` Openshift 3.9
-
+## Ansible `inventory.ini` for Openshift `3.9`
 ```bash
+[OSEv3:children]
+masters
+nodes
+etcd
+lb
+
 [masters]
 openshift-master-0.local
+
+[lb]
+openshift-lb-0.local
 
 [etcd]
 openshift-master-0.local
 
 [nodes]
-openshift-master-0.local      openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
-openshift-infra-0.local       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"          openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
-openshift-compute-0.local     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"        openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
+openshift-master-0.local
+openshift-infra-0.local       openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+openshift-compute-0.local     openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
 
-[OSEv3:children]
-masters
-nodes
-etcd
-yes
 [OSEv3:vars]
 ansible_user=ansible
 openshift_deployment_type=origin
 ansible_become=true
 openshift_release=v3.9
-openshift_master_default_subdomain=local
+openshift_master_default_subdomain=apps.local
 openshift_master_cluster_hostname=openshift-master-0.local
 debug_level=2
 template_service_broker_selector={'region': 'infra'}
 ```
 
 #### If required ommit some checks
-
 ```bash
 openshift_check_min_host_disk_gb=1 openshift_check_min_host_memory_gb=1
 ```
 
 ## OpenShift ansible playbooks
 
-#### Install
+### Install
 ```bash
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
 ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
@@ -154,7 +213,7 @@ htpasswd -c /etc/origin/master/htpasswd admin
 
 ## Diagnostics
 
-#### Get pods which status is not Running
+### Get pods which status is not Running
 ```bash
 for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do 
   echo "Namespace: $i"
@@ -163,8 +222,7 @@ for i in `oc get ns | tail -n +2 | awk '{print $1}'` ; do
 done
 ```
 
-#### Get resources
-
+### Get resources
 ```bash
 NAMESPACES="default example"
 RESOURCES="pods pvc pv sc cm ingress deployments svc"
@@ -178,13 +236,12 @@ for i in $NAMESPACES ; do
 done
 ```
 
-#### login as admin
+### login as admin
 ```bash
 oc login -u system:admin -n default
 ```
 
-#### Pushing docker images
-
+### Pushing docker images
 ```
 oc login
 oc whoami -t
@@ -200,18 +257,22 @@ docker push 172.30.19.100:5000/example/grafana:latest
 oc get is
 ```
 
-####
-
+### Network diagnostics
 ```bash
 nsenter -t PID -n ip addr
 
 conntrack -L
 ```
 
-#### Certificates `OpenShift 3.9`
+## Certificates 
 
+### Pods not starting on `OpenShift 3.9`
 
-#### Fix certificates per playbook on x509 Error
+```bash
+openshift-master/redeploy-openshift-ca.yml
+```
+
+### Fix certificates on x509 Error, deploy whole `in order`
 ```bash
 redeploy-certificates.yml
 
@@ -221,7 +282,7 @@ openshift-master/redeploy-certificates.yml
 openshift-master/redeploy-openshift-ca.yml
 ```
 
-#### 
+### Other certificates
 ```bash
 openshift-node/redeploy-certificates.yml
 

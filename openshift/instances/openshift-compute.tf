@@ -15,9 +15,9 @@ resource "google_compute_instance" "openshift-compute" {
   network_interface {
     subnetwork = var.openshift_compute_subnetwork
 
-//    access_config {
-//      nat_ip = element(var.openshift_compute_addresses, count.index)
-//    }
+    access_config {
+      nat_ip = element(var.openshift_compute_addresses, count.index)
+    }
   }
 
   metadata = {

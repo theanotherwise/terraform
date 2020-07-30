@@ -66,9 +66,9 @@ variable "openshift_compute_subnetwork" {
   type = string
 }
 
-//variable "openshift_compute_addresses" {
-//  type = list(string)
-//}
+variable "openshift_compute_addresses" {
+  type = list(string)
+}
 
 variable "openshift_infra_name" {
   type = string
@@ -98,9 +98,9 @@ variable "openshift_infra_subnetwork" {
   type = string
 }
 
-//variable "openshift_infra_addresses" {
-//  type = list(string)
-//}
+variable "openshift_infra_addresses" {
+  type = list(string)
+}
 
 variable "openshift_lb_name" {
   type = string
