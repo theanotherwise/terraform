@@ -255,16 +255,27 @@ oc login -u system:admin -n default
 
 ### Pushing docker images
 ```
-oc login
-oc whoami -t
+oc get svc/docker-registry
 
-docker logout
-docker login -u admin -p XXX 172.30.19.100:5000
+oc login
+
+REGISTRY_ADDR="172.30.13.74" # oc get svc/docker-registry
+OC_TOKEN="`oc whoami -t`"
+
+docker login -u admin -p $OC_TOKEN $REGISTRY_ADDR:5000
+
+sudo -i tee /etc/docker/daemon.json <<EndOfMessage
+{
+        "insecure-registries" : ["$REGISTRY_ADDR:5000"]
+}
+EndOfMessage
+
+sudo service docker restart
 
 docker pull grafana/grafana:latest
 
-docker tag docker.io/grafana/grafana 172.30.19.100:5000/example/grafana:latest
-docker push 172.30.19.100:5000/example/grafana:latest
+docker tag docker.io/grafana/grafana $REGISTRY_ADDR:5000/linuxpolska/grafana
+docker push $REGISTRY_ADDR:5000/linuxpolska/grafana:latest
 
 oc get is
 ```
