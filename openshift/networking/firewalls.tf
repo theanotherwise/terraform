@@ -94,7 +94,6 @@ resource "google_compute_firewall" "from-internet-to-openshift-lb" {
     protocol = "tcp"
     ports = [
       "80",
-      "8080",
       "443",
       "8443"]
   }

@@ -271,8 +271,8 @@ sudo -i chmod 777 /var/run/docker.sock
 
 oc login
 
-DOCKER_URL="docker.io"
-DOCKER_PROVIDER="jboss"
+DOCKER_URL="quay.io"
+DOCKER_PROVIDER="keycloak" 
 DOCKER_IMAGE="keycloak"
 DOCKER_VERSION="latest"
 DOCKER_PATH="$DOCKER_URL/$DOCKER_PROVIDER/$DOCKER_IMAGE:$DOCKER_VERSION"
@@ -291,8 +291,6 @@ docker pull "$DOCKER_PATH"
 
 docker tag "$DOCKER_PATH" "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
 docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
-
-oc get is
 ```
 
 ### Network diagnostics
@@ -382,4 +380,46 @@ done
 
 for i in `ls "$LPV_DIR/pv" | xargs -0` ; do oc create -f ./$LPV_DIR/pv/$i ; done
 for i in `ls "$LPV_DIR/pvc" | xargs -0` ; do oc create -f ./$LPV_DIR/pvc/$i ; done
+```
+
+### Self signed
+
+```bash
+openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -out server.crt \
+            -keyout server.key
+```
+
+# Pluging Services
+
+## GitLab
+```bash
+gitlab_rails['omniauth_enabled'] = true
+gitlab_rails['omniauth_allow_single_sign_on'] = ['saml']
+gitlab_rails['omniauth_block_auto_created_users'] = false
+gitlab_rails['omniauth_auto_link_saml_user'] = true
+gitlab_rails['omniauth_providers'] = [
+  {
+    name: 'saml',
+    args: {
+             assertion_consumer_service_url: 'https://1git0.localdomain/users/auth/saml/callback',
+             idp_cert_fingerprint: 'A4:F1:5D:EF:E5:7E:F7:3E:78:59:59:09:96:7B:8D:11:F7:A8:0B:45',
+             idp_sso_target_url: 'http://alpha.seems.legal/auth/realms/linuxpolska/protocol/saml/clients/1git0.localdomain',
+             issuer: '1git0.localdomain',
+             attribute_statements: {
+                     first_name: ['first_name'],
+                     last_name: ['last_name'],
+                     name: ['name'],
+                     username: ['name'],
+                     email: ['email']
+             },
+             name_identifier_format: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'
+           },
+    label: 'Linux Polska Sp. z o. o.'
+  }
+]
 ```
