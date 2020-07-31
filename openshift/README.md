@@ -255,27 +255,42 @@ oc login -u system:admin -n default
 
 ### Pushing docker images
 ```
-oc get svc/docker-registry
+# oc get svc/docker-registry -n default
 
-oc login
-
-REGISTRY_ADDR="172.30.13.74" # oc get svc/docker-registry
-OC_TOKEN="`oc whoami -t`"
-
-docker login -u admin -p $OC_TOKEN $REGISTRY_ADDR:5000
+OS_REG_ADDR="172.30.13.74"
+OS_REG_PORT="5000"
 
 sudo -i tee /etc/docker/daemon.json <<EndOfMessage
 {
-        "insecure-registries" : ["$REGISTRY_ADDR:5000"]
+        "insecure-registries" : ["$OS_REG_ADDR:$OS_REG_PORT"]
 }
 EndOfMessage
 
-sudo service docker restart
+sudo -i service docker restart
+sudo -i chmod 777 /var/run/docker.sock
 
-docker pull grafana/grafana:latest
+oc login
 
-docker tag docker.io/grafana/grafana $REGISTRY_ADDR:5000/linuxpolska/grafana
-docker push $REGISTRY_ADDR:5000/linuxpolska/grafana:latest
+DOCKER_URL="docker.io"
+DOCKER_PROVIDER="jboss"
+DOCKER_IMAGE="keycloak"
+DOCKER_VERSION="latest"
+DOCKER_PATH="$DOCKER_URL/$DOCKER_PROVIDER/$DOCKER_IMAGE:$DOCKER_VERSION"
+
+OS_PROJ_NAME="linuxpolska"
+OS_IMAGE_PATH="$OS_PROJ_NAME/$DOCKER_IMAGE:$DOCKER_VERSION"
+
+oc project "$OS_PROJ_NAME"
+OC_TOKEN="`oc whoami -t`"
+
+oc login -u system:admin -n default
+
+docker login -u admin -p "$OC_TOKEN" "$OS_REG_ADDR:$OS_REG_PORT"
+
+docker pull "$DOCKER_PATH"
+
+docker tag "$DOCKER_PATH" "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
+docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
 
 oc get is
 ```
