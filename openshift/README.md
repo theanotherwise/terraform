@@ -423,3 +423,9 @@ gitlab_rails['omniauth_providers'] = [
   }
 ]
 ```
+
+### Formating Certificate
+```bash
+https://www.samltool.com/format_x509cert.php
+https://www.samltool.com/fingerprint.php
+```
