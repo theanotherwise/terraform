@@ -272,12 +272,14 @@ sudo -i chmod 777 /var/run/docker.sock
 oc login
 
 DOCKER_URL="docker.io"
-DOCKER_IMAGE="sonarqube" # keycloak/keycloak
+DOCKER_VENDOR="grafana"
+DOCKER_IMAGE="grafana-enterprise"
+test -z $DOCKER_VENDOR && DOCKER_PATH="$DOCKER_IMAGE" || DOCKER_PATH="$DOCKER_VENDOR/$DOCKER_IMAGE"
 DOCKER_VERSION="latest"
-DOCKER_PATH="$DOCKER_URL/$DOCKER_IMAGE:$DOCKER_VERSION"
+DOCKER_PATH="$DOCKER_URL/$DOCKER_PATH"
 
 OS_PROJ_NAME="linuxpolska"
-OS_IMAGE_PATH="$OS_PROJ_NAME/$DOCKER_IMAGE:$DOCKER_VERSION"
+OS_IMAGE_PATH="$OS_PROJ_NAME/$DOCKER_IMAGE"
 
 oc project "$OS_PROJ_NAME"
 OC_TOKEN="`oc whoami -t`"
@@ -286,10 +288,10 @@ oc login -u system:admin -n default
 
 docker login -u admin -p "$OC_TOKEN" "$OS_REG_ADDR:$OS_REG_PORT"
 
-docker pull "$DOCKER_PATH"
+docker pull "$DOCKER_PATH:$DOCKER_VERSION"
 
 docker tag "$DOCKER_PATH" "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
-docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
+docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH:$DOCKER_VERSION"
 ```
 
 ### Network diagnostics
@@ -391,6 +393,15 @@ openssl req -newkey rsa:4096 \
             -nodes \
             -out server.crt \
             -keyout server.key
+```
+
+# Keycloak
+
+```bash
+KEYCLOAK_PASSWORD
+KEYCLOAK_USER
+NAMESPACE
+PROXY_ADDRESS_FORWARDING=true
 ```
 
 # SSO Services
