@@ -271,11 +271,10 @@ sudo -i chmod 777 /var/run/docker.sock
 
 oc login
 
-DOCKER_URL="quay.io"
-DOCKER_PROVIDER="keycloak" 
-DOCKER_IMAGE="keycloak"
+DOCKER_URL="docker.io"
+DOCKER_IMAGE="sonarqube" # keycloak/keycloak
 DOCKER_VERSION="latest"
-DOCKER_PATH="$DOCKER_URL/$DOCKER_PROVIDER/$DOCKER_IMAGE:$DOCKER_VERSION"
+DOCKER_PATH="$DOCKER_URL/$DOCKER_IMAGE:$DOCKER_VERSION"
 
 OS_PROJ_NAME="linuxpolska"
 OS_IMAGE_PATH="$OS_PROJ_NAME/$DOCKER_IMAGE:$DOCKER_VERSION"
@@ -394,9 +393,9 @@ openssl req -newkey rsa:4096 \
             -keyout server.key
 ```
 
-# Pluging Services
+# SSO Services
 
-## GitLab
+## GitLab (/etc/gitlab/gitlab.rb)
 ```bash
 gitlab_rails['omniauth_enabled'] = true
 gitlab_rails['omniauth_allow_single_sign_on'] = ['saml']
@@ -408,7 +407,7 @@ gitlab_rails['omniauth_providers'] = [
     args: {
              assertion_consumer_service_url: 'https://1git0.localdomain/users/auth/saml/callback',
              idp_cert_fingerprint: 'A4:F1:5D:EF:E5:7E:F7:3E:78:59:59:09:96:7B:8D:11:F7:A8:0B:45',
-             idp_sso_target_url: 'http://alpha.seems.legal/auth/realms/linuxpolska/protocol/saml/clients/1git0.localdomain',
+             idp_sso_target_url: 'https://alpha.seems.legal/auth/realms/linuxpolska/protocol/saml/clients/1git0.localdomain',
              issuer: '1git0.localdomain',
              attribute_statements: {
                      first_name: ['first_name'],
@@ -428,4 +427,41 @@ gitlab_rails['omniauth_providers'] = [
 ```bash
 https://www.samltool.com/format_x509cert.php
 https://www.samltool.com/fingerprint.php
+```
+
+## SonarQube
+
+```bash
+sonar.forceAuthentication=true
+sonar.auth.saml.enabled=true
+sonar.auth.saml.applicationId=gamma.seems.legal
+sonar.auth.saml.providerName=Keycloak
+sonar.auth.saml.providerId=https://alpha.seems.legal/auth/realms/linuxpolska
+sonar.auth.saml.loginUrl=https://alpha.seems.legal/auth/realms/linuxpolska/protocol/saml/clients/gamma.seems.legal
+sonar.auth.saml.certificate.secured=MIICpTCCAY0CBgFzpnmCejANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtsaW51eHBvbHNrYTAeFw0yMDA3MzEyMDAyMjdaFw0zMDA3MzEyMDA0MDdaMBYxFDASBgNVBAMMC2xpbnV4cG9sc2thMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtobfBINvZGgzT3VFtRerTiXAHCQqqU2MHyPrGAdCBiMudH982pu0Qhnlsm3BUteeeEPA1BvL7Cc1b79pe2Udzpv08kfeki6rkDZG244/WrWrtthCpKyvSQnwK40QfXlI92wHvavIFhSKe1hdkUePGLTS9MHFipKtjZD5FWDjDXU2p0JjcYF9FqJ4CQLiG2EMclwSpM8iTjs5XgugpKs2DnRGdwOnYTqy/URUz4TRwaupWvKcdyeMTA0f7CLJRGm3imiPUXATRrK/0nrrLSzeFVkqLpP5xGRVzEJf1I7BPVihQfO2w/+xPU0acCBVyMTXUeH1AIGXlqLnFwZqCDSUsQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCqLYuza0ieVTbme4nAoC1ge8Khh4I6iZXx1F15AvgOLu8/C/foA3H7nldK95E7ehZeB4FgmhB5tab2DPTYjGgeexnvcJWR8mL1e+xRiljwjAX9Zvp1GtOsQWqrrrE8TyHwb8DUtGs/UFNOC9fCKNTcexaDb/4E+vP7+MAIKH9SOHSyCdsD6QJW1TbNRRj1YP+h7mqIBZi1GuWtOb84COXEWOQGlLn1Y7ZBv8xqx+EYDgSIFpPS+GQH6NjjshScDhU3/ad66a367xfSrE4bPpk7nUnGx4wA6AClo9ts/DdCzdb8ipQgJqzOdqKpM61yrTeEpMML1+nrXnl44c3eB404
+sonar.auth.saml.user.login=login
+sonar.auth.saml.user.name=name
+sonar.auth.saml.user.email=email
+sonar.auth.saml.group.name=groups
+```
+
+# Applications mount paths
+
+## Grafana
+```bash
+/etc/grafana # grafana.ini, ldap.toml
+/etc/grafana/provisioning/datasources
+/etc/grafana/provisioning/notifiers
+/etc/grafana/provisioning/plugins
+/etc/grafana/provisioning/dashboards
+```
+
+## Sonarqube
+```bash
+/opt/sonarqube/conf # sonar.properties, wrapper.conf
+```
+
+## Gitlab
+```bash
+/etc/gitlab # gitlab.rb
 ```
