@@ -269,11 +269,9 @@ EndOfMessage
 sudo -i service docker restart
 sudo -i chmod 777 /var/run/docker.sock
 
-oc login
-
 DOCKER_URL="docker.io"
 DOCKER_VENDOR="grafana"
-DOCKER_IMAGE="grafana-enterprise"
+DOCKER_IMAGE="grafana"
 test -z $DOCKER_VENDOR && DOCKER_PATH="$DOCKER_IMAGE" || DOCKER_PATH="$DOCKER_VENDOR/$DOCKER_IMAGE"
 DOCKER_VERSION="latest"
 DOCKER_PATH="$DOCKER_URL/$DOCKER_PATH"
@@ -282,6 +280,8 @@ OS_PROJ_NAME="linuxpolska"
 OS_IMAGE_PATH="$OS_PROJ_NAME/$DOCKER_IMAGE"
 
 oc project "$OS_PROJ_NAME"
+
+oc login
 OC_TOKEN="`oc whoami -t`"
 
 oc login -u system:admin -n default
@@ -290,8 +290,8 @@ docker login -u admin -p "$OC_TOKEN" "$OS_REG_ADDR:$OS_REG_PORT"
 
 docker pull "$DOCKER_PATH:$DOCKER_VERSION"
 
-docker tag "$DOCKER_PATH" "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
-docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH:$DOCKER_VERSION"
+docker tag "$DOCKER_PATH:$DOCKER_VERSION" "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
+docker push "$OS_REG_ADDR:$OS_REG_PORT/$OS_IMAGE_PATH"
 ```
 
 ### Network diagnostics
@@ -479,4 +479,32 @@ gitlab_rails['omniauth_providers'] = [
 ```bash
 https://www.samltool.com/format_x509cert.php
 https://www.samltool.com/fingerprint.php
+```
+
+## Grafana
+
+### Configuration (/etc/grafana/grafana.ini)
+```bash
+root_url = https://beta.seems.legal
+
+[auth.generic_oauth]
+enabled = true
+name = Keycloak
+allow_sign_up = true
+client_id = beta.seems.legal
+client_secret = a354fc63-c1a4-431a-961c-21b9ff1e63c5
+scopes = openid profile email
+email_attribute_name = email:primary
+;email_attribute_path =
+auth_url = https://alpha.seems.legal/auth/realms/linuxpolska/protocol/openid-connect/auth
+token_url = https://alpha.seems.legal/auth/realms/linuxpolska/protocol/openid-connect/token
+api_url = https://alpha.seems.legal/auth/realms/linuxpolska/protocol/openid-connect/userinfo
+;allowed_domains =
+;team_ids =
+;allowed_organizations =
+;role_attribute_path =
+tls_skip_verify_insecure = true
+;tls_client_cert =
+;tls_client_key =
+;tls_client_ca =
 ```
