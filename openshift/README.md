@@ -425,7 +425,7 @@ PROXY_ADDRESS_FORWARDING=true
 /opt/sonarqube/conf # files: sonar.properties, wrapper.conf
 ```
 
-### Configuration (sonar.properties)
+### Configuration `sonar.properties`
 ```bash
 sonar.forceAuthentication=true
 sonar.auth.saml.enabled=true
@@ -447,7 +447,7 @@ sonar.auth.saml.group.name=groups
 /etc/gitlab # files: gitlab.rb
 ```
 
-### Configuration (/etc/gitlab/gitlab.rb)
+### Configuration `/etc/gitlab/gitlab.rb`
 ```bash
 gitlab_rails['omniauth_enabled'] = true
 gitlab_rails['omniauth_allow_single_sign_on'] = ['saml']
@@ -483,7 +483,7 @@ https://www.samltool.com/fingerprint.php
 
 ## Grafana
 
-### Configuration (/etc/grafana/grafana.ini)
+### Configuration `/etc/grafana/grafana.ini`
 ```bash
 root_url = https://beta.seems.legal
 
