@@ -507,4 +507,15 @@ tls_skip_verify_insecure = true
 ;tls_client_cert =
 ;tls_client_key =
 ;tls_client_ca =
+
+[auth.proxy]
+enabled = true
+header_name = X-WEBAUTH-USER
+header_property = username
+auto_sign_up = true
+;sync_ttl = 60
+;whitelist = 192.168.1.1, 192.168.2.1
+;headers = Email:X-User-Email, Name:X-User-Name
+# Read the auth proxy docs for details on what the setting below enables
+;enable_login_token = false
 ```
