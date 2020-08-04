@@ -19,9 +19,15 @@ gke_name = "example"
 gke_tags = [
   "gke",
   "all",]
-gke_location = "us-central1-a"
-gke_machine_type = "n1-standard-8"
+gke_location = "us-central1-c"
+gke_machine_type = "n1-standard-4"
 gke_network_cidr = "10.0.10.0/24"
+
+gke_cluster_init_nodes = 1
+gke_cluster_min_master_version = "1.16.13-gke.1"
+gke_pool_init_nodes = 2 # be sure if really want change this value
+gke_pool_mix_nodes_nodes = 2
+gke_pool_max_nodes_nodes = 3
 
 bastion_name = "bastion"
 bastion_tags = [

@@ -5,11 +5,11 @@ resource "google_container_node_pool" "gke-pool" {
 
   cluster = google_container_cluster.gke.name
 
-  initial_node_count = 5
+  initial_node_count = var.gke_pool_init_nodes
 
   autoscaling {
-    min_node_count = 6
-    max_node_count = 10
+    min_node_count = var.gke_pool_mix_nodes_nodes
+    max_node_count = var.gke_pool_max_nodes_nodes
   }
 
   node_config {
@@ -17,9 +17,7 @@ resource "google_container_node_pool" "gke-pool" {
     disk_type = "pd-ssd"
     disk_size_gb = 100
 
-    tags = [
-      "gke-node",
-      "all"]
+    tags = var.gke_tags
 
     service_account = google_service_account.service_account.email
   }

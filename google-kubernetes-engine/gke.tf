@@ -5,6 +5,11 @@ module "gke" {
   subnetwork_name = module.networking.subnetwork_gke_cluster_name
 
   gke_name = var.gke_name
+  gke_cluster_init_nodes = var.gke_cluster_init_nodes
+  gke_cluster_min_master_version = var.gke_cluster_min_master_version
+  gke_pool_init_nodes = var.gke_pool_init_nodes
+  gke_pool_mix_nodes_nodes = var.gke_pool_mix_nodes_nodes
+  gke_pool_max_nodes_nodes = var.gke_pool_max_nodes_nodes
   gke_tags = var.gke_tags
   gke_location = var.gke_location
   gke_machine_type = var.gke_machine_type

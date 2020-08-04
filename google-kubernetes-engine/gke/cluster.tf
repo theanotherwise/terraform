@@ -3,12 +3,12 @@ resource "google_container_cluster" "gke" {
 
   location = var.gke_location
 
-  min_master_version = "1.16.10-gke.8"
+  min_master_version = var.gke_cluster_min_master_version
 
   network = var.network_name
   subnetwork = var.subnetwork_name
 
-  initial_node_count = 1
+  initial_node_count = var.gke_cluster_init_nodes
   remove_default_node_pool = true
 
   private_cluster_config {
@@ -29,9 +29,7 @@ resource "google_container_cluster" "gke" {
     disk_type = "pd-ssd"
     disk_size_gb = 100
 
-    tags = [
-      "gke-node",
-      "all"]
+    tags = var.gke_tags
 
     service_account = google_service_account.service_account.email
   }
