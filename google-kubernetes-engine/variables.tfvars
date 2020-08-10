@@ -19,9 +19,10 @@ gke_cluster_tags = [
 gke_cluster_region = "us-central1"
 gke_cluster_zones = [
   "us-central1-a",
-  "us-central1-b",
-  "us-central1-c",
-  "us-central1-f"]
+  //  "us-central1-b",
+  //  "us-central1-c",
+  //  "us-central1-f"
+]
 gke_cluster_network_cidr = "10.0.10.0/24"
 gke_cluster_machine_type = "n1-standard-1"
 gke_cluster_min_master_version = "1.16.13-gke.1"
@@ -34,14 +35,15 @@ gke_normal_pool_tags = [
 gke_normal_pool_region = "us-central1"
 gke_normal_pool_zones = [
   "us-central1-a",
-  "us-central1-b",
-  "us-central1-c",
-  "us-central1-f"]
-gke_normal_pool_machine_type = "n1-standard-1"
+  //  "us-central1-b",
+  //  "us-central1-c",
+  //  "us-central1-f"
+]
+gke_normal_pool_machine_type = "n1-standard-8"
 gke_normal_pool_network_cidr = "10.0.11.0/24"
-gke_normal_pool_init_nodes = 1
-gke_normal_pool_mix_nodes_nodes = 1
-gke_normal_pool_max_nodes_nodes = 1
+gke_normal_pool_init_nodes = 2
+gke_normal_pool_mix_nodes_nodes = 2
+gke_normal_pool_max_nodes_nodes = 2
 
 bastion_name = "bastion"
 bastion_tags = [
