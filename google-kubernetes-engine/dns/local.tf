@@ -1,6 +1,8 @@
-resource "google_dns_managed_zone" "private-local" {
-  name = "local"
-  dns_name = "local."
+resource "google_dns_managed_zone" "private-seems-legal-cloud" {
+  name = "seems-cloud"
+  dns_name = "seems.cloud."
+
+  description = "seems.cloud."
 
   visibility = "private"
 
