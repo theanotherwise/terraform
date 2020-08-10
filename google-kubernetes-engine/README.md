@@ -1,4 +1,4 @@
-# Kubernetes on GCP
+# Kubernetes Regional Cluster on GCP
 
 ## Get credentials
 
