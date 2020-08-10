@@ -1,31 +1,35 @@
-variable "image" {
-    type = string
+variable "bastion_image" {
+  type = string
 }
 
 variable "bastion_name" {
-    type = string
+  type = string
 }
 
 variable "bastion_tags" {
-    type = list(string)
+  type = list(string)
+}
+
+variable "bastion_zone" {
+  type = string
 }
 
 variable "bastion_network_cidr" {
-    type = string
+  type = string
 }
 
 variable "bastion_machine_type" {
-    type = string
+  type = string
 }
 
 variable "provider_subnetwork_name" {
-    type = string
+  type = string
 }
 
 variable "provider_address" {
-    type = string
+  type = string
 }
 
 variable "dependencies" {
-    type = list(string)
+  type = list(string)
 }

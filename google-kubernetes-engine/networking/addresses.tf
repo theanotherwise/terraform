@@ -1,3 +1,3 @@
 resource "google_compute_address" "bastion" {
-  name = "${var.bastion_name}"
+  name = var.bastion_name
 }

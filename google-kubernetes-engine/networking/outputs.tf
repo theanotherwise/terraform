@@ -14,6 +14,10 @@ output "address_bastion_address" {
   value = google_compute_address.bastion.address
 }
 
-output "subnetwork_gke_cluster_name" {
-  value = google_compute_subnetwork.gke-cluster.name
+output "subnetwork_gke_regional_cluster_name" {
+  value = google_compute_subnetwork.gke-regional-cluster.name
+}
+
+output "subnetwork_gke_regional_cluster_normal_pool_name" {
+  value = google_compute_subnetwork.gke-regional-cluster-normal-pool
 }
