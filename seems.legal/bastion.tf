@@ -3,6 +3,8 @@ module "bastion" {
 
   image  = var.image
 
+  terraform_ssh_key_pub = var.terraform_ssh_key_pub
+
   bastion_name = var.bastion_name
   bastion_tags = var.bastion_tags
   bastion_machine_type = var.bastion_machine_type

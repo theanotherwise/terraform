@@ -15,36 +15,23 @@ ansible_ssh_key_pub = <<EndOfMessage
 ansible:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCi8wHVecPaj12wH4gSUoUBs8wP+skNRKvx1N5S7MKFRu8bt4plAKKKS2HzFtOSECsXycQ2q5LVUQCMwWklBYiW9uhAE0g22QPQq/Oseu70q/liUdFIHuRXKC8HI3wRCNKxKvvml0RcMSciSNK5knUbyoGEvB13tQrKTSHiYX+seQ==
 EndOfMessage
 
-frontend_name = "frontend"
-frontend_tags = [
-  "frontend",
-  "all"]
-frontend_machine_type = "n1-standard-1"
-frontend_network_cidr = "10.0.10.0/24"
-
-application_name = "application"
-application_tags = [
-  "application",
-  "all"]
-application_machine_type = "n1-standard-1"
-application_network_cidr = "10.0.11.0/24"
-
-database_name = "database"
-database_tags = [
-  "database",
-  "all"]
-database_machine_type = "n1-standard-1"
-database_network_cidr = "10.0.12.0/24"
-
-redis_name = "redis"
-redis_tags = [
-  "redis",
-  "all"]
-redis_machine_type = "n1-standard-1"
-redis_network_cidr = "10.0.13.0/24"
-
 bastion_name = "bastion"
 bastion_tags = [
-"bastion"]
+  "bastion"]
 bastion_machine_type = "n1-standard-1"
 bastion_network_cidr = "10.0.1.0/24"
+
+vpn_name = "vpn"
+vpn_count = 2
+vpn_tags = [
+  "vpn",
+  "all"]
+vpn_machine_type = "n1-standard-1"
+vpn_network_cidr = "10.0.2.0/24"
+
+website_name = "website"
+website_tags = [
+  "website",
+  "all"]
+website_machine_type = "n1-standard-1"
+website_network_cidr = "10.0.10.0/24"

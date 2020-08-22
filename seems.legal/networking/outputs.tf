@@ -2,6 +2,10 @@ output "network_name" {
   value = google_compute_network.network.name
 }
 
+output "network_id" {
+  value = google_compute_network.network.id
+}
+
 output "subnetwork_bastion_name" {
   value = google_compute_subnetwork.bastion.name
 }
@@ -10,22 +14,18 @@ output "address_bastion_address" {
   value = google_compute_address.bastion.address
 }
 
-output "address_frontend_address" {
-  value = google_compute_address.frontend.address
+output "subnetwork_vpn_name" {
+  value = google_compute_subnetwork.vpn.name
 }
 
-output "subnetwork_frontend_name" {
-  value = google_compute_subnetwork.frontend.name
+output "address_vpn_address" {
+  value = google_compute_address.vpn.*.address
 }
 
-output "subnetwork_application_name" {
-  value = google_compute_subnetwork.application.name
+output "address_website_address" {
+  value = google_compute_address.website.address
 }
 
-output "subnetwork_database_name" {
-  value = google_compute_subnetwork.database.name
-}
-
-output "subnetwork_redis_name" {
-  value = google_compute_subnetwork.redis.name
+output "subnetwork_website_name" {
+  value = google_compute_subnetwork.website.name
 }

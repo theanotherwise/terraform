@@ -11,19 +11,14 @@ module "networking" {
 
   ansible_user = var.ansible_user
   ansible_ssh_keys_pub = var.ansible_ssh_key_pub
-  
+
+  website_name = var.website_name
+  website_network_cidr = var.website_network_cidr
+
+  vpn_name = var.vpn_name
+  vpn_count = var.vpn_count
+  vpn_network_cidr = var.vpn_network_cidr
+
   bastion_name = var.bastion_name
   bastion_network_cidr = var.bastion_network_cidr
-
-  frontend_name = var.frontend_name
-  frontend_network_cidr = var.frontend_network_cidr
-
-  application_name = var.application_name
-  application_network_cidr = var.application_network_cidr
-
-  database_name = var.database_name
-  database_network_cidr = var.database_network_cidr
-
-  redis_name = var.redis_name
-  redis_network_cidr = var.redis_network_cidr
 }

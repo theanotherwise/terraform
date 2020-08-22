@@ -1,6 +1,6 @@
 provider "google" {
   credentials = ".credentials.json"
-  project = "empirical-weft-283219"
+  project = "molten-infusion-277321"
   region = var.region
   zone = var.zone
 }

@@ -8,9 +8,9 @@ resource "google_compute_subnetwork" "bastion" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "frontend" {
-  name = var.frontend_name
-  ip_cidr_range = var.frontend_network_cidr
+resource "google_compute_subnetwork" "website" {
+  name = var.website_name
+  ip_cidr_range = var.website_network_cidr
   region = var.region
   network = google_compute_network.network.name
 
@@ -18,29 +18,9 @@ resource "google_compute_subnetwork" "frontend" {
     google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "application" {
-  name = var.application_name
-  ip_cidr_range = var.application_network_cidr
-  region = var.region
-  network = google_compute_network.network.name
-
-  depends_on = [
-    google_compute_network.network]
-}
-
-resource "google_compute_subnetwork" "database" {
-  name = var.database_name
-  ip_cidr_range = var.database_network_cidr
-  region = var.region
-  network = google_compute_network.network.name
-
-  depends_on = [
-    google_compute_network.network]
-}
-
-resource "google_compute_subnetwork" "redis" {
-  name = var.redis_name
-  ip_cidr_range = var.redis_network_cidr
+resource "google_compute_subnetwork" "vpn" {
+  name = var.vpn_name
+  ip_cidr_range = var.vpn_network_cidr
   region = var.region
   network = google_compute_network.network.name
 

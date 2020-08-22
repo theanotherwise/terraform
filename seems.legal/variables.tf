@@ -46,66 +46,38 @@ variable "bastion_machine_type" {
   type = string
 }
 
-variable "frontend_name" {
+variable "vpn_name" {
   type = string
 }
 
-variable "frontend_tags" {
+variable "vpn_count" {
+  type = number
+}
+
+variable "vpn_tags" {
   type = list(string)
 }
 
-variable "frontend_network_cidr" {
+variable "vpn_network_cidr" {
   type = string
 }
 
-variable "frontend_machine_type" {
+variable "vpn_machine_type" {
   type = string
 }
 
-variable "application_name" {
+variable "website_name" {
   type = string
 }
 
-variable "application_tags" {
+variable "website_tags" {
   type = list(string)
 }
 
-variable "application_network_cidr" {
+variable "website_network_cidr" {
   type = string
 }
 
-variable "application_machine_type" {
-  type = string
-}
-
-variable "database_name" {
-  type = string
-}
-
-variable "database_tags" {
-  type = list(string)
-}
-
-variable "database_network_cidr" {
-  type = string
-}
-
-variable "database_machine_type" {
-  type = string
-}
-
-variable "redis_name" {
-  type = string
-}
-
-variable "redis_tags" {
-  type = list(string)
-}
-
-variable "redis_network_cidr" {
-  type = string
-}
-
-variable "redis_machine_type" {
+variable "website_machine_type" {
   type = string
 }

@@ -17,7 +17,12 @@ resource "google_compute_instance" "bastion" {
     }
   }
 
+  metadata = {
+    ssh-keys = var.terraform_ssh_key_pub
+  }
+
   allow_stopping_for_update = true
 
-  depends_on = [var.dependencies]
+  depends_on = [
+    var.dependencies]
 }
