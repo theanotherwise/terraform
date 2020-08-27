@@ -30,6 +30,10 @@ variable "bastion_name" {
   type = string
 }
 
+variable "bastion_tags" {
+  type = list(string)
+}
+
 variable "bastion_network_cidr" {
   type = string
 }
@@ -48,6 +52,10 @@ variable "vpn_network_cidr" {
 
 variable "website_name" {
   type = string
+}
+
+variable "website_tags" {
+  type = list(string)
 }
 
 variable "website_network_cidr" {

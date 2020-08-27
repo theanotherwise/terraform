@@ -13,6 +13,7 @@ module "networking" {
   ansible_ssh_keys_pub = var.ansible_ssh_key_pub
 
   website_name = var.website_name
+  website_tags = var.website_tags
   website_network_cidr = var.website_network_cidr
 
   vpn_name = var.vpn_name
@@ -20,5 +21,6 @@ module "networking" {
   vpn_network_cidr = var.vpn_network_cidr
 
   bastion_name = var.bastion_name
+  bastion_tags = var.bastion_tags
   bastion_network_cidr = var.bastion_network_cidr
 }

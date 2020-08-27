@@ -2,7 +2,7 @@ resource "google_compute_instance" "bastion" {
   name = var.bastion_name
   machine_type = var.bastion_machine_type
 
-  tags = var.bastion_tags
+  tags = concat(var.bastion_tags, ["all"])
 
   boot_disk {
     initialize_params {

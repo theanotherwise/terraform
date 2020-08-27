@@ -6,6 +6,7 @@ resource "google_compute_firewall" "from-internet-to-bastion" {
 
   source_ranges = [
     "0.0.0.0/0"]
+
   target_tags = [
     "bastion"]
 
@@ -27,6 +28,7 @@ resource "google_compute_firewall" "from-bastion-to-all" {
 
   source_tags = [
     "bastion"]
+
   target_tags = [
     "all"]
 
@@ -48,13 +50,34 @@ resource "google_compute_firewall" "from-internet-to-website" {
 
   source_ranges = [
     "0.0.0.0/0"]
-  target_tags = [
-    "website"]
+
+  target_tags = var.website_tags
 
   allow {
     protocol = "tcp"
     ports = [
       "80",
+      "443"]
+  }
+
+  depends_on = [
+    google_compute_network.network]
+}
+
+resource "google_compute_firewall" "from-internet-to-vpn" {
+  name = "from-internet-to-vpn"
+  network = google_compute_network.network.name
+
+  direction = "INGRESS"
+
+  source_ranges = [
+    "0.0.0.0/0"]
+
+  target_tags = var.website_tags
+
+  allow {
+    protocol = "tcp"
+    ports = [
       "443"]
   }
 

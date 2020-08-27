@@ -2,7 +2,7 @@ resource "google_compute_instance" "website" {
   name = var.website_name
   machine_type = var.website_machine_type
 
-  tags = var.website_tags
+  tags = concat(var.website_tags, ["all"])
 
   boot_disk {
     initialize_params {

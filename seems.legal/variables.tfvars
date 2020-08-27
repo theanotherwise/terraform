@@ -18,20 +18,18 @@ EndOfMessage
 bastion_name = "bastion"
 bastion_tags = [
   "bastion"]
-bastion_machine_type = "n1-standard-1"
+bastion_machine_type = "f1-micro"
 bastion_network_cidr = "10.0.1.0/24"
 
 vpn_name = "vpn"
 vpn_count = 2
 vpn_tags = [
-  "vpn",
-  "all"]
-vpn_machine_type = "n1-standard-1"
+  "vpn"]
+vpn_machine_type = "f1-micro"
 vpn_network_cidr = "10.0.2.0/24"
 
 website_name = "website"
 website_tags = [
-  "website",
-  "all"]
-website_machine_type = "n1-standard-1"
+  "website"]
+website_machine_type = "f1-micro"
 website_network_cidr = "10.0.10.0/24"
