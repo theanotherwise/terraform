@@ -16,7 +16,7 @@ resource "google_container_node_pool" "normal-pool" {
   node_config {
     machine_type = var.gke_normal_pool_machine_type
     disk_type = "pd-ssd"
-    disk_size_gb = 100
+    disk_size_gb = 50
 
     tags = var.gke_cluster_tags
 

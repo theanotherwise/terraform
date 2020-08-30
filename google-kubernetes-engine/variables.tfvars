@@ -19,12 +19,12 @@ gke_cluster_tags = [
 gke_cluster_region = "us-central1"
 gke_cluster_zones = [
   "us-central1-a",
-  //  "us-central1-b",
-  //  "us-central1-c",
-  //  "us-central1-f"
+//  "us-central1-b",
+//  "us-central1-c",
+//  "us-central1-f"
 ]
 gke_cluster_network_cidr = "10.0.10.0/24"
-gke_cluster_machine_type = "n1-standard-1"
+gke_cluster_machine_type = "n1-standard-8"
 gke_cluster_min_master_version = "1.16.13-gke.1"
 gke_cluster_init_nodes = 1 # will be removed after cluster created
 
@@ -35,9 +35,9 @@ gke_normal_pool_tags = [
 gke_normal_pool_region = "us-central1"
 gke_normal_pool_zones = [
   "us-central1-a",
-  //  "us-central1-b",
-  //  "us-central1-c",
-  //  "us-central1-f"
+//  "us-central1-b",
+//  "us-central1-c",
+//  "us-central1-f"
 ]
 gke_normal_pool_machine_type = "n1-standard-8"
 gke_normal_pool_network_cidr = "10.0.11.0/24"
@@ -50,6 +50,6 @@ bastion_tags = [
   "bastion"]
 bastion_region = "us-central1"
 bastion_zone = "us-central1-a"
-bastion_machine_type = "n1-standard-2"
+bastion_machine_type = "n1-standard-1"
 bastion_image = "ubuntu-os-cloud/ubuntu-1804-lts"
 bastion_network_cidr = "10.0.1.0/24"
