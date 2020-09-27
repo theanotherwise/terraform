@@ -1,3 +1,0 @@
-module "defaults" {
-  source = "./defaults"
-}

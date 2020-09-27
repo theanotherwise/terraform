@@ -1,9 +1,0 @@
-docker run -it --rm \
-    --sysctl net.ipv6.conf.lo.disable_ipv6=0 \
-    --name freeipa-server-container \
-    -h localhost.localdomain \
-    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-    -v /var/lib/ipa-data:/data \
-    --tmpfs /run \
-    --tmpfs /tmp \
-    freeipa/freeipa-server:latest
